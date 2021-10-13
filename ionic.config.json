@@ -1,0 +1,7 @@
+{
+  "name": "interfaceAppAll",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
