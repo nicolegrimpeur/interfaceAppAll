@@ -1,20 +1,40 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Modifications des infos des résidences
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- slide refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Choisis ta résidence</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- liste des résidences -->
+        <ion-button *ngFor="let residence of liste.residence" expand="block" color="medium" (click)="clickEvent(residence.id)">{{residence.name}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-segment value={{this.langue}} (ionChange)="changeLangue($event)">
+    <ion-segment-button value="fr">
+      <label *ngIf="langue === 'fr'">Français</label>
+      <label *ngIf="langue === 'en'">French</label>
+    </ion-segment-button>
+    <ion-segment-button value="en">
+      <label *ngIf="langue === 'fr'">Anglais</label>
+      <label *ngIf="langue === 'en'">English</label>
+    </ion-segment-button>
+  </ion-segment>
 </ion-content>
