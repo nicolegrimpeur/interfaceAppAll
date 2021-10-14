@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  providers: [HttpService]
 })
 export class HomePage {
   public langue: string;

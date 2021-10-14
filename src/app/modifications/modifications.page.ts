@@ -11,6 +11,7 @@ import {HttpService} from "../core/http.service";
 export class ModificationsPage implements OnInit {
   private id = '';
   public infos = new InfoResidenceModel();  // stockage du json
+  public modifications = [];
 
   constructor(
     private httpService: HttpService,
@@ -35,6 +36,26 @@ export class ModificationsPage implements OnInit {
     this.httpService.getJson(this.id).toPromise().then(result => {
       this.infos = result;
     })
+  }
+
+  clickEvent(info) {
+    if (this.modifications[0] === info.content[0]) {
+      this.modifications = [];
+    }
+    else {
+      this.modifications = [];
+      for (const content of info.content) {
+        this.modifications.push(content);
+      }
+    }
+  }
+
+  ajoutLigneModif() {
+    this.modifications.push('');
+  }
+
+  ajoutTheme(infoOrLien) {
+  // ajouter alert pour demander le nom
   }
 
   // événement pour rafraichir la page

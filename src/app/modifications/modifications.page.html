@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>modifications</ion-title>
+    <ion-title>Résidence {{infos.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,4 +9,31 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <br>
+
+  <div *ngFor="let infosOrLiens of ['liens', 'infos']">
+    <ion-title>{{infos['name' + infosOrLiens.slice(0, 1).toUpperCase() + infosOrLiens.slice(1, infosOrLiens.length)]}}</ion-title>
+
+    <ion-grid>
+      <ion-row>
+        <!-- ajout des barres en fonction du json -->
+        <ion-col *ngFor="let info of infos[infosOrLiens]">
+          <ion-button expand="block" color="medium" fill="solid" (click)="clickEvent(info)"> {{ info.id }} </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" color="medium" fill="outline" (click)="ajoutTheme(infosOrLiens)"> + </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-item *ngFor="let modif of modifications">
+    <ion-textarea spellcheck="true" value="{{modif}}"></ion-textarea>
+  </ion-item>
+
+  <br>
+
+  <ion-button *ngIf="modifications.length !== 0" color="medium" fill="solid" (click)="ajoutLigneModif()"> Ajouter une ligne </ion-button>
+
 </ion-content>
