@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Langue} from '../shared/langue';
-import {AlertController} from '@ionic/angular';
+import {AlertController, Platform} from '@ionic/angular';
 import {HttpService} from "../core/http.service";
 import {ListeModel} from "../shared/models/liste-model";
 import {Router} from "@angular/router";
@@ -14,18 +14,27 @@ import {Router} from "@angular/router";
 export class HomePage {
   public langue: string;
   public liste = new ListeModel();
+  public mobile = this.platform.platforms().findIndex(res => res === 'mobile') !== -1; // true si l'on est sur téléphone, false sinon
 
   constructor(
     private alertController: AlertController,
     private httpService: HttpService,
-    private route: Router
+    private route: Router,
+    private platform: Platform
   ) {
   }
 
   ionViewWillEnter() {
+    if (this.mobile) {
+      this.route.navigate(['/erreur']).then();
+    }
+
     this.httpService.getListe().toPromise().then(result => {
       this.liste = result;
-    });
+    })
+      .catch(() => {
+        this.route.navigate(['/erreur']).then();
+      });
   }
 
   // redirige l'utilisateur au click sur un bouton

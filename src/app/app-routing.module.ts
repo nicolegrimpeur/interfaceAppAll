@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'modifications',
     loadChildren: () => import('./modifications/modifications.module').then( m => m.ModificationsPageModule)
   },
+  {
+    path: 'erreur',
+    loadChildren: () => import('./erreur/erreur.module').then( m => m.ErreurPageModule)
+  },
 ];
 
 @NgModule({

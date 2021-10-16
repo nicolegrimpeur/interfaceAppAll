@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Page d'erreur</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title *ngIf="mobile">
+        Ce site n'est pas disponible sur téléphone
+      </ion-card-title>
+      <ion-card-title *ngIf="!mobile">
+        Serveur en maintenance
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="mobile">
+      Merci de réaliser vos modifications depuis un ordinateur
+    </ion-card-content>
+    <ion-card-content *ngIf="!mobile">
+      Le serveur est actuellement en maintenance, merci de réessayer plus tard
+    </ion-card-content>
+    <ion-card-content>
+      En cas de problème, n'hésitez pas à contacter Nicolas Barrat,
+      <a href='tel:07.81.70.66.63' title='Appeler Nicolas' target='_blank'>07.81.70.66.63</a>,
+      <a href='https://m.me/nicolegrimpeur' title='Lien vers le compte messenger de Nicolas' target='_blank'>Messenger</a>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
