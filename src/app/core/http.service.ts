@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {InfoResidenceModel} from '../shared/models/info-residence-model';
 import {Langue} from '../shared/langue';
@@ -28,9 +28,19 @@ export class HttpService {
     return this.http.get<ListeModel>(url);
   }
 
-  // récupère la liste de résidence en ligne
-  addRes(name: string, id: string): Observable<ListeModel> {
+  // ajoute la résidence
+  addRes(name: string, id: string): Observable<any> {
     const url = this.baseUrl + 'addRes/' + name + '/' + id;
-    return this.http.get<ListeModel>(url);
+    return this.http.get<any>(url);
+  }
+
+  // upload les modifications sur le serveur
+  uploadModifs(data, id): Observable<any> {
+    let headers = new HttpHeaders();
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/json' );
+
+    const url = this.baseUrl + 'upload/' + id + '/' + Langue.value;
+    return this.http.post(url, data, {headers: {'Content-Type': 'application/json'}});
   }
 }

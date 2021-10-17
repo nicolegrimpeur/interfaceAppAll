@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {InfoResidenceModel} from '../shared/models/info-residence-model';
 import {HttpService} from "../core/http.service";
@@ -9,9 +9,12 @@ import {HttpService} from "../core/http.service";
   styleUrls: ['./modifications.page.scss'],
 })
 export class ModificationsPage implements OnInit {
+  @ViewChild('divElement') divElement;
+
   private id = '';
   public infos = new InfoResidenceModel();  // stockage du json
   public modifications = [];
+  private currentModif = {id: '', infosOrLiens: ''};
 
   constructor(
     private httpService: HttpService,
@@ -38,15 +41,18 @@ export class ModificationsPage implements OnInit {
     })
   }
 
-  clickEvent(info) {
+  clickEvent(info, infosOrLiens) {
     if (this.modifications[0] === info.content[0]) {
       this.modifications = [];
-    }
-    else {
+      this.currentModif.id = '';
+      this.currentModif.infosOrLiens = '';
+    } else {
       this.modifications = [];
       for (const content of info.content) {
         this.modifications.push(content);
       }
+      this.currentModif.id = this.infos[infosOrLiens].findIndex(res => res.id === info.id);
+      this.currentModif.infosOrLiens = infosOrLiens;
     }
   }
 
@@ -55,7 +61,25 @@ export class ModificationsPage implements OnInit {
   }
 
   ajoutTheme(infoOrLien) {
-  // ajouter alert pour demander le nom
+    // ajouter alert pour demander le nom
+  }
+
+  enregistrer() {
+    const listeTextArea = this.divElement.nativeElement.children;
+    const tmp = [];
+
+    for (const item of listeTextArea) {
+      tmp.push(item.firstChild.value);
+    }
+    this.infos[this.currentModif.infosOrLiens][this.currentModif.id] = tmp;
+
+    this.httpService.uploadModifs(this.infos, this.id).toPromise()
+      .then(() => {
+        console.log('ok !?');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   // événement pour rafraichir la page

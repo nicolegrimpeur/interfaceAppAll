@@ -1,6 +1,4 @@
 const fs = require("fs");
-const express = require("express");
-const router = express.Router();
 
 const baseUrl = "http://localhost:8080/";
 const path = './';

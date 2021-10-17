@@ -19,7 +19,7 @@
       <ion-row>
         <!-- ajout des barres en fonction du json -->
         <ion-col *ngFor="let info of infos[infosOrLiens]">
-          <ion-button expand="block" color="medium" fill="solid" (click)="clickEvent(info)"> {{ info.id }} </ion-button>
+          <ion-button expand="block" color="medium" fill="solid" (click)="clickEvent(info, infosOrLiens)"> {{ info.id }} </ion-button>
         </ion-col>
         <ion-col>
           <ion-button expand="block" color="medium" fill="outline" (click)="ajoutTheme(infosOrLiens)"> + </ion-button>
@@ -28,12 +28,14 @@
     </ion-grid>
   </div>
 
-  <ion-item *ngFor="let modif of modifications">
+  <div #divElement>
+    <ion-item *ngFor="let modif of modifications">
     <ion-textarea spellcheck="true" value="{{modif}}"></ion-textarea>
   </ion-item>
+  </div>
 
   <br>
 
   <ion-button *ngIf="modifications.length !== 0" color="medium" fill="solid" (click)="ajoutLigneModif()"> Ajouter une ligne </ion-button>
-
+  <ion-button *ngIf="modifications.length !== 0" (click)="enregistrer()">Enregistrer</ion-button>
 </ion-content>
