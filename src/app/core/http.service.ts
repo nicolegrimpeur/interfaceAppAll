@@ -27,4 +27,10 @@ export class HttpService {
     const url = this.baseUrl + 'listeResidences';
     return this.http.get<ListeModel>(url);
   }
+
+  // récupère la liste de résidence en ligne
+  addRes(name: string, id: string): Observable<ListeModel> {
+    const url = this.baseUrl + 'addRes/' + name + '/' + id;
+    return this.http.get<ListeModel>(url);
+  }
 }

@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 import {Langue} from '../shared/langue';
 import {AlertController, Platform} from '@ionic/angular';
-import {HttpService} from "../core/http.service";
-import {ListeModel} from "../shared/models/liste-model";
-import {Router} from "@angular/router";
+import {HttpService} from '../core/http.service';
+import {ListeModel} from '../shared/models/liste-model';
+import {Router} from '@angular/router';
+import {Display} from '../shared/class/display';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ export class HomePage {
     private alertController: AlertController,
     private httpService: HttpService,
     private route: Router,
-    private platform: Platform
+    private platform: Platform,
+    private display: Display
   ) {
     this.langue = Langue.value;
   }
@@ -101,21 +103,27 @@ export class HomePage {
       }, {
         text: 'Ok',
         role: 'ok'
-      }
-      ]
+      }]
     });
 
     // on affiche l'alerte
     await alert.present();
 
     // on attend que l'utilisateur supprime l'alerte
-    const result = await alert.onDidDismiss();
-
-    console.log(result.role, result.data);
-
-    if (result.role !== 'cancel') {
-
-    }
+    await alert.onDidDismiss().then((result) => {
+      if (result.role !== 'cancel') {
+        this.httpService.addRes(result.data.values.name, result.data.values.id).toPromise().then().catch((err) => {
+          if (err.status === 200) {
+            this.display.display({code: 'La résidence a bien été créé', color: 'success'});
+          } else if (err.status === 201) {
+            this.display.display('La résidence existe déjà');
+          } else {
+            this.route.navigate(['/erreur']).then();
+          }
+          this.ionViewWillEnter();
+        });
+      }
+    });
   }
 
   // événement pour rafraichir la page
