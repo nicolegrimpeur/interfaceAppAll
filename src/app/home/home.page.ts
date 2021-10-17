@@ -22,6 +22,7 @@ export class HomePage {
     private route: Router,
     private platform: Platform
   ) {
+    this.langue = Langue.value;
   }
 
   ionViewWillEnter() {
@@ -54,13 +55,13 @@ export class HomePage {
     if (Langue.value === 'fr') {
       alert = await this.alertController.create({
         subHeader: 'Changement de la langue en Français',
-        message: 'Vous allez être redirigé sur la page d\'accueil',
+        message: 'Vous pouvez maintenant modifier les pages en Français',
         buttons: ['OK']
       });
     } else if (Langue.value === 'en') {
       alert = await this.alertController.create({
         subHeader: 'Langue switch to English',
-        message: 'You will be redirect on the main page',
+        message: 'Vous pouvez maintenant modifier les pages en Anglais',
         buttons: ['OK']
       });
     }
@@ -73,6 +74,48 @@ export class HomePage {
 
     // on change la langue de la page
     this.langue = Langue.value;
+  }
+
+  async addResidence() {
+    let alert = await this.alertController.create({
+      cssClass: 'ajoutRes',
+      header: 'Informations sur la nouvelle résidence',
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: 'Nom de la résidence (exemple Saint-Omer)'
+        },
+        {
+          name: 'id',
+          type: 'text',
+          placeholder: 'Identifiant de la résidence (exemple STO)'
+        }
+      ],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Confirm Cancel');
+        }
+      }, {
+        text: 'Ok',
+        role: 'ok'
+      }
+      ]
+    });
+
+    // on affiche l'alerte
+    await alert.present();
+
+    // on attend que l'utilisateur supprime l'alerte
+    const result = await alert.onDidDismiss();
+
+    console.log(result.role, result.data);
+
+    if (result.role !== 'cancel') {
+
+    }
   }
 
   // événement pour rafraichir la page

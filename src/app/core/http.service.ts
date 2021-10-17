@@ -10,7 +10,8 @@ import {ListeModel} from '../shared/models/liste-model';
   providedIn: 'root'
 })
 export class HttpService {
-  private baseUrl = 'https://nicob.ovh/apiJson/';
+  // private baseUrl = 'https://nicob.ovh/apiJson/';
+  private baseUrl = 'http://localhost:1080/apiJson/';
 
   constructor(private readonly http: HttpClient) {
   }

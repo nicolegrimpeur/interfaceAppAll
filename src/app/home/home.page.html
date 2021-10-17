@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Modifications des infos des résidences
+      Modifications des infos des résidences (Langue : {{langue === 'fr' ? 'Français' : 'Anglais'}})
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -18,9 +18,28 @@
     </ion-toolbar>
   </ion-header>
 
+  <!-- bouton du All -->
+  <ion-button expand="block" color="medium" (click)="clickEvent('All')">All</ion-button>
+
   <!-- liste des résidences -->
   <ion-button *ngFor="let residence of liste.residence" expand="block" color="medium"
               (click)="clickEvent(residence.id)">{{residence.name}}</ion-button>
+
+  <!-- bouton pour ajouter une résidence -->
+  <ion-button expand="block" color="medium" fill="outline" (click)="addResidence()">
+    <ion-icon name="add"></ion-icon>
+  </ion-button>
+</ion-content>
+
+<ion-footer>
+  <ion-card>
+    <ion-card-content>
+      Vous modifiez actuellement les informations de votre résidence en {{langue === 'fr' ? 'Français' : 'Anglais'}}
+    </ion-card-content>
+    <ion-card-content>
+      Vous pouvez changer la langue de modification juste en dessous
+    </ion-card-content>
+  </ion-card>
 
   <ion-segment value={{this.langue}} (ionChange)="changeLangue($event)">
     <ion-segment-button value="fr">
@@ -32,4 +51,4 @@
       <label *ngIf="langue === 'en'">English</label>
     </ion-segment-button>
   </ion-segment>
-</ion-content>
+</ion-footer>
