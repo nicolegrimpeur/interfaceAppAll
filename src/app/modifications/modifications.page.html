@@ -19,18 +19,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <!--  <ion-item>-->
-  <!--    <ion-label>Choisissez l'information à modifier</ion-label>-->
-  <!--    <ion-select interface="popover" value=" " (ionChange)="eventChange($event)">-->
-  <!--      <ion-select-option value=" "></ion-select-option>-->
-  <!--      <ion-select-option value="name">Nom de la résidence</ion-select-option>-->
-  <!--      <ion-select-option value="news">Nouveautés</ion-select-option>-->
-  <!--      <ion-select-option value="liens">Zone d'information 1</ion-select-option>-->
-  <!--      <ion-select-option value="infos">Zone d'information 2</ion-select-option>-->
-  <!--      <ion-select-option value="colonnesInfos">Colonnes d'informations</ion-select-option>-->
-  <!--      <ion-select-option value="bullesLien">Bulles liens</ion-select-option>-->
-  <!--    </ion-select>-->
-  <!--  </ion-item>-->
+
 
   <!--  <br>-->
 
@@ -66,71 +55,117 @@
   <!--  </ion-button>-->
   <!--  <ion-button *ngIf="modifications.length !== 0" (click)="enregistrer()">Enregistrer</ion-button>-->
 
+
   <ion-card>
     <ion-card-content>
-      Si vous souhaitez créer un lien clickable, clickez ici
+      Si vous souhaitez créer un lien clickable, cliquez ici
     </ion-card-content>
   </ion-card>
 
-  <ion-title>Nom de la résidence</ion-title>
-  <ion-item>
-    <ion-textarea class="petit" spellcheck="true" value="{{infos.name}}"></ion-textarea>
+  <ion-item style="margin: 0 3vw">
+    <ion-label>Choisissez l'information à modifier</ion-label>
+    <ion-select #ionSelect interface="popover" value="">
+      <ion-select-option value=""></ion-select-option>
+      <ion-select-option *ngIf="infos.name !== undefined" value="name">Nom de la résidence</ion-select-option>
+      <ion-select-option value="news">Nouveautés</ion-select-option>
+      <ion-select-option value="infos">Zone d'informations</ion-select-option>
+      <ion-select-option value="colonnesInfos">Colonnes d'informations</ion-select-option>
+      <ion-select-option value="bullesLien">Bulles liens</ion-select-option>
+    </ion-select>
   </ion-item>
 
-  <br>
+<!--  <ion-card>-->
+  <ion-card *ngIf="infos.name !== undefined && ionSelect.value === 'name'">
+    <ion-card-header>
+      <ion-card-title>
+        Nom de la résidence
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-textarea class="petit" spellcheck="true" value="{{infos.name}}"></ion-textarea>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
-  <ion-title>Nouveautés</ion-title>
-  <ion-item *ngFor="let news of infos.news">
-    <ion-textarea class="petit" spellcheck="true" value="{{news}}"></ion-textarea>
-  </ion-item>
 
-  <br><br>
+<!--  <ion-card>-->
+  <ion-card *ngIf="ionSelect.value === 'news'">
+    <ion-card-header>
+      <ion-card-title>
+        Nouveautés
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngFor="let news of infos.news">
+        <ion-textarea class="petit" spellcheck="true" value="{{news}}"></ion-textarea>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
-  <ion-title>Informations</ion-title>
-  <div *ngFor="let infosOrLiens of ['liens', 'infos']">
-    <ion-item>
-      <ion-textarea class="petit" spellcheck="true" value="{{infos['name' + infosOrLiens.slice(0, 1).toUpperCase() + infosOrLiens.slice(1, infosOrLiens.length)]}}"></ion-textarea>
-    </ion-item>
 
-    <ion-grid>
-      <ion-row>
-        <!-- ajout des barres en fonction du json -->
-        <ion-col *ngFor="let info of infos[infosOrLiens]">
-          <ion-button expand="block" color="medium" fill="solid"> {{ info.id }} </ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button expand="block" color="medium" fill="outline"> + </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+<!--  <ion-card>-->
+  <ion-card *ngIf="ionSelect.value === 'infos'">
+    <ion-card-header>
+      <ion-card-title>
+        Informations
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngFor="let infosOrLiens of ['liens', 'infos']">
+      <ion-item>
+        <ion-textarea class="petit" spellcheck="true" value="{{infos['name' + infosOrLiens.slice(0, 1).toUpperCase() + infosOrLiens.slice(1, infosOrLiens.length)]}}"></ion-textarea>
+      </ion-item>
 
-  <br><br>
+      <ion-grid>
+        <ion-row>
+          <!-- ajout des barres en fonction du json -->
+          <ion-col *ngFor="let info of infos[infosOrLiens]">
+            <ion-button expand="block" color="medium" fill="solid"> {{ info.id }} </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" color="medium" fill="outline"> + </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 
-  <ion-title>Colonnes d'infos</ion-title>
-  <div *ngFor="let col of infos.colInfo">
-    <ion-item *ngFor="let idCol of ['title', 'info1', 'info2']">
-      <ion-textarea class="petit" spellcheck="true" value="{{col[idCol]}}"></ion-textarea>
-    </ion-item>
-    <br>
-  </div>
 
-  <br>
+<!--  <ion-card>-->
+  <ion-card *ngIf="ionSelect.value === 'colonnesInfos'">
+    <ion-card-header>
+      <ion-card-title>
+        Colonnes d'infos
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngFor="let col of infos.colInfo">
+      <ion-item *ngFor="let idCol of ['title', 'info1', 'info2']">
+        <ion-textarea class="petit" spellcheck="true" value="{{col[idCol]}}"></ion-textarea>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
-  <ion-title>Bulles liens</ion-title>
-  <div *ngFor="let bulle of infos.bullesLien">
-    <ion-item>
-      <ion-label>Titre : </ion-label>
-      <ion-textarea class="petit" spellcheck="true" value="{{bulle.title}}"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label>Lien : </ion-label>
-      <ion-textarea class="petit" spellcheck="true" value="{{bulle.href}}"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label>Nom du logo (infos <a title="Lien vers le site de logos ionic" href="https://ionic.io/ionicons" target="_blank">ici</a>) : </ion-label>
-      <ion-textarea class="petit" spellcheck="true" value="{{bulle.logo}}"></ion-textarea>
-    </ion-item>
-    <br>
-  </div>
+
+<!--  <ion-card>-->
+  <ion-card *ngIf="ionSelect.value === 'bullesLien'">
+    <ion-card-header>
+      <ion-card-title>
+        Bulles liens
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngFor="let bulle of infos.bullesLien">
+      <ion-item>
+        <ion-label>Titre : </ion-label>
+        <ion-textarea class="petit" spellcheck="true" value="{{bulle.title}}"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Lien : </ion-label>
+        <ion-textarea class="petit" spellcheck="true" value="{{bulle.href}}"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Nom du logo (infos <a title="Lien vers le site de logos ionic" href="https://ionic.io/ionicons" target="_blank">ici</a>) : </ion-label>
+        <ion-textarea class="petit" spellcheck="true" value="{{bulle.logo}}"></ion-textarea>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

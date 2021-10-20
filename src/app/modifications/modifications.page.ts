@@ -10,6 +10,7 @@ import {HttpService} from "../core/http.service";
 })
 export class ModificationsPage implements OnInit {
   @ViewChild('divElement') divElement;
+  @ViewChild('ionSelect') ionSelect;
 
   private id = '';
   public infos = new InfoResidenceModel();  // stockage du json
