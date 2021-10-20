@@ -7,7 +7,7 @@
 
     <ion-title>{{infos.name !== undefined ? 'Résidence ' + infos.name : 'All'}}</ion-title>
 
-    <ion-button slot="end">
+    <ion-button slot="end" style="margin-right: 2vw">
       Enregistrer
     </ion-button>
   </ion-toolbar>
@@ -18,8 +18,6 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
-  <br>
 
   <!--  <ion-item>-->
   <!--    <ion-label>Choisissez l'information à modifier</ion-label>-->
@@ -67,6 +65,19 @@
   <!--    ligne-->
   <!--  </ion-button>-->
   <!--  <ion-button *ngIf="modifications.length !== 0" (click)="enregistrer()">Enregistrer</ion-button>-->
+
+  <ion-card>
+    <ion-card-content>
+      Si vous souhaitez créer un lien clickable, clickez ici
+    </ion-card-content>
+  </ion-card>
+
+  <ion-title>Nom de la résidence</ion-title>
+  <ion-item>
+    <ion-textarea class="petit" spellcheck="true" value="{{infos.name}}"></ion-textarea>
+  </ion-item>
+
+  <br>
 
   <ion-title>Nouveautés</ion-title>
   <ion-item *ngFor="let news of infos.news">
