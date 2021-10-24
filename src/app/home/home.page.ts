@@ -114,9 +114,9 @@ export class HomePage {
       if (result.role !== 'cancel') {
         this.httpService.addRes(result.data.values.name, result.data.values.id).toPromise().then().catch((err) => {
           if (err.status === 200) {
-            this.display.display({code: 'La résidence a bien été créé', color: 'success'});
+            this.display.display({code: 'La résidence a bien été créé', color: 'success'}).then();
           } else if (err.status === 201) {
-            this.display.display('La résidence existe déjà');
+            this.display.display('La résidence existe déjà').then();
           } else {
             this.route.navigate(['/erreur']).then();
           }

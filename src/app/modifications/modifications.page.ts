@@ -40,9 +40,13 @@ export class ModificationsPage implements OnInit {
       }
     }
 
-    this.httpService.getJson(this.id).toPromise().then(result => {
-      this.infos = result;
-    })
+    this.httpService.getJson(this.id).toPromise()
+      .then(result => {
+        this.infos = result;
+      })
+      .catch(err => {
+        this.router.navigate(['/erreur']).then();
+      });
   }
 
   addLineNews() {
@@ -104,8 +108,7 @@ export class ModificationsPage implements OnInit {
     if (this.currentModif.id === idInfo) {
       this.currentModif.id = '';
       this.currentModif.infosOrLiens = '';
-    }
-    else {
+    } else {
       this.currentModif.id = this.infos[infosOrLiens].findIndex(res => res.id === idInfo);
       this.currentModif.infosOrLiens = infosOrLiens;
     }
