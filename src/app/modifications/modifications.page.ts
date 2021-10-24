@@ -15,7 +15,7 @@ export class ModificationsPage implements OnInit {
 
   private id = ''; // stocke l'id de la résidence
   public infos = new InfoResidenceModel();  // stockage du json
-  public currentModif = {id: '', content: [], infosOrLiens: ''}; // stocke les informations du click sur un bouton de la card informations
+  public currentModif = {id: '', infosOrLiens: ''}; // stocke les informations du click sur un bouton de la card informations
 
   constructor(
     private httpService: HttpService,
@@ -80,6 +80,16 @@ export class ModificationsPage implements OnInit {
   // supprime le dernier élément de id
   removeLine(id) {
     this.infos[id].pop();
+  }
+
+  // ajoute une ligne pour l'information affiché
+  addLineInformation() {
+    this.infos[this.currentModif.infosOrLiens][this.currentModif.id].content.push('');
+  }
+
+  // supprimer une ligne de l'information affiché
+  removeLineInformation() {
+    this.infos[this.currentModif.infosOrLiens][this.currentModif.id].content.pop();
   }
 
   // stocke les modifications effectués sur la textarea en local

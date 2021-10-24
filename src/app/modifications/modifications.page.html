@@ -126,6 +126,25 @@
                       (ionBlur)="ionChange($event, currentModif.infosOrLiens, currentModif.id, 'content', ind)"></ion-textarea>
       </ion-item>
     </ion-card-content>
+
+    <ion-card-content *ngIf="currentModif.id !== ''">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color="medium" (click)="addLineInformation()">
+              <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+              Ajouter une ligne
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" color="medium" (click)="removeLineInformation()">
+              <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+              Supprimer la dernière ligne
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
   </ion-card>
 
 
