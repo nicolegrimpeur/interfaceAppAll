@@ -22,48 +22,13 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-
-  <!--  <br>-->
-
-
-  <!--  <div *ngIf="currentValueSelect === 'liens' || currentValueSelect === 'infos'">-->
-  <!--    <ion-title>{{infos['name' + currentValueSelect.slice(0, 1).toUpperCase() + currentValueSelect.slice(1, currentValueSelect.length)]}}</ion-title>-->
-
-  <!--    <ion-grid>-->
-  <!--      <ion-row>-->
-  <!--        &lt;!&ndash; ajout des barres en fonction du json &ndash;&gt;-->
-  <!--        <ion-col *ngFor="let info of infos[currentValueSelect]">-->
-  <!--          <ion-button expand="block" color="medium" fill="solid"-->
-  <!--                      (click)="clickEvent(info, currentValueSelect)"> {{ info.id }} </ion-button>-->
-  <!--        </ion-col>-->
-  <!--        <ion-col>-->
-  <!--          <ion-button expand="block" color="medium" fill="outline" (click)="ajoutTheme(currentValueSelect)"> +-->
-  <!--          </ion-button>-->
-  <!--        </ion-col>-->
-  <!--      </ion-row>-->
-  <!--    </ion-grid>-->
-  <!--  </div>-->
-
-  <!--  <div #divElement>-->
-  <!--    <ion-item *ngFor="let modif of modifications">-->
-  <!--      <ion-textarea spellcheck="true" value="{{modif}}"></ion-textarea>-->
-  <!--    </ion-item>-->
-  <!--  </div>-->
-
-  <!--  <br>-->
-
-  <!--  <ion-button *ngIf="modifications.length !== 0" color="medium" fill="solid" (click)="ajoutLigneModif()"> Ajouter une-->
-  <!--    ligne-->
-  <!--  </ion-button>-->
-  <!--  <ion-button *ngIf="modifications.length !== 0" (click)="enregistrer()">Enregistrer</ion-button>-->
-
-
   <ion-card>
     <ion-card-content>
       Si vous souhaitez créer un lien clickable, cliquez ici
     </ion-card-content>
   </ion-card>
 
+  <!-- permet de sélectionner facilement l'information que l'on souhaite modifier -->
   <ion-item style="margin: 0 3vw">
     <ion-label>Choisissez l'information à modifier</ion-label>
     <ion-select #ionSelect interface="popover" value="">
@@ -76,7 +41,8 @@
     </ion-select>
   </ion-item>
 
-  <!--  <ion-card>-->
+
+  <!-- Nom de la résidence -->
   <ion-card *ngIf="infos.name !== undefined && (ionSelect.value === 'name' || ionSelect.value === '')">
     <ion-card-header>
       <ion-card-title>
@@ -92,7 +58,7 @@
   </ion-card>
 
 
-  <!--  <ion-card>-->
+  <!-- Nouveautés -->
   <ion-card *ngIf="ionSelect.value === 'news' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
@@ -127,7 +93,7 @@
   </ion-card>
 
 
-  <!--  <ion-card>-->
+  <!-- Informations à modifier -->
   <ion-card *ngIf="ionSelect.value === 'infos' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
@@ -163,7 +129,7 @@
   </ion-card>
 
 
-  <!--  <ion-card>-->
+  <!-- Colonnes d'informations -->
   <ion-card *ngIf="ionSelect.value === 'colonnesInfos' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
@@ -198,7 +164,7 @@
   </ion-card>
 
 
-  <!--  <ion-card>-->
+  <!-- Informations pour les bulles -->
   <ion-card *ngIf="ionSelect.value === 'bullesLien' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>

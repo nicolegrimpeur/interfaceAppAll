@@ -12,17 +12,11 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title *ngIf="mobile">
-        Ce site n'est pas disponible sur téléphone
-      </ion-card-title>
-      <ion-card-title *ngIf="!mobile">
+      <ion-card-title>
         Serveur en maintenance
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngIf="mobile">
-      Merci de réaliser vos modifications depuis un ordinateur
-    </ion-card-content>
-    <ion-card-content *ngIf="!mobile">
+    <ion-card-content>
       Le serveur est actuellement en maintenance, merci de réessayer plus tard
     </ion-card-content>
     <ion-card-content>

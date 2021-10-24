@@ -13,28 +13,25 @@ import {Display} from '../shared/class/display';
   providers: [HttpService]
 })
 export class HomePage {
-  public langue: string;
-  public liste = new ListeModel();
-  public mobile = this.platform.platforms().findIndex(res => res === 'mobile') !== -1; // true si l'on est sur téléphone, false sinon
+  public langue: string; // stocke la lanque courante
+  public liste = new ListeModel(); // stocke la liste des résidences
 
   constructor(
     private alertController: AlertController,
     private httpService: HttpService,
     private route: Router,
-    private platform: Platform,
     private display: Display
   ) {
+    // initialisation de la langue courante
     this.langue = Langue.value;
   }
 
   ionViewWillEnter() {
-    if (this.mobile) {
-      this.route.navigate(['/erreur']).then();
-    }
-
-    this.httpService.getListe().toPromise().then(result => {
-      this.liste = result;
-    })
+    // récupère la liste
+    this.httpService.getListe().toPromise()
+      .then(result => {
+        this.liste = result;
+      })
       .catch(() => {
         this.route.navigate(['/erreur']).then();
       });
@@ -78,6 +75,7 @@ export class HomePage {
     this.langue = Langue.value;
   }
 
+  // ajoute une nouvelle résidence
   async addResidence() {
     let alert = await this.alertController.create({
       cssClass: 'ajoutRes',

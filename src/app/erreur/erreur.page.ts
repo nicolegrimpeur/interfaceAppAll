@@ -10,7 +10,7 @@ import {HttpService} from "../core/http.service";
 })
 export class ErreurPage implements OnInit {
   public mobile = this.platform.platforms().findIndex(res => res === 'mobile') !== -1; // true si l'on est sur téléphone, false sinon
-  private interval;
+  private interval; // stocke le refresh automatique
 
   constructor(
     private platform: Platform,
@@ -26,6 +26,7 @@ export class ErreurPage implements OnInit {
   ngOnInit() {
   }
 
+  // check si la connexion au serveur est de retour
   checkList() {
     this.httpService.getJson('All').toPromise()
       .then(() => {
@@ -37,7 +38,7 @@ export class ErreurPage implements OnInit {
       .catch(() => {});
   }
 
-  // événement pour rafraichir la page
+  // événement pour rafraichir la page avec un slide
   doRefresh(event) {
     setTimeout(() => {
       // rafraichi le json
