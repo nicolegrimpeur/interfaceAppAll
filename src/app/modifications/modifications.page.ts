@@ -14,9 +14,7 @@ export class ModificationsPage implements OnInit {
 
   private id = '';
   public infos = new InfoResidenceModel();  // stockage du json
-  public modifications = [];
-  private currentModif = {id: '', infosOrLiens: ''};
-  public currentValueSelect = '';
+  public currentModif = {id: '', content: [], infosOrLiens: ''};
 
   constructor(
     private httpService: HttpService,
@@ -80,6 +78,9 @@ export class ModificationsPage implements OnInit {
       case 3:
         this.infos[path[0]][path[1]][path[2]] = event.detail.value;
         break;
+      case 4:
+        this.infos[path[0]][path[1]][path[2]][path[3]] = event.detail.value;
+        break;
     }
     console.log(this.infos);
   }
@@ -94,22 +95,18 @@ export class ModificationsPage implements OnInit {
       });
   }
 
-  //
-  // clickEvent(info, infosOrLiens) {
-  //   console.log(info);
-  //   if (this.modifications[0] === info.content[0]) {
-  //     this.modifications = [];
-  //     this.currentModif.id = '';
-  //     this.currentModif.infosOrLiens = '';
-  //   } else {
-  //     this.modifications = [];
-  //     for (const content of info.content) {
-  //       this.modifications.push(content);
-  //     }
-  //     this.currentModif.id = this.infos[infosOrLiens].findIndex(res => res.id === info.id);
-  //     this.currentModif.infosOrLiens = infosOrLiens;
-  //   }
-  // }
+  // fonction lancé au click sur un des boutons de la partie information
+  clickEvent(idInfo, infosOrLiens) {
+    // stocke l'id clické, son contenu, ainsi que si c'est une info ou un lien
+    if (this.currentModif.id === idInfo) {
+      this.currentModif.id = '';
+      this.currentModif.infosOrLiens = '';
+    }
+    else {
+      this.currentModif.id = this.infos[infosOrLiens].findIndex(res => res.id === idInfo);
+      this.currentModif.infosOrLiens = infosOrLiens;
+    }
+  }
   //
   // ajoutLigneModif() {
   //   this.modifications.push('');
@@ -136,12 +133,6 @@ export class ModificationsPage implements OnInit {
   //       console.log(err);
   //     });
   // }
-
-
-  eventChange(event) {
-    console.log(event.detail.value);
-    this.currentValueSelect = event.detail.value;
-  }
 
   // événement pour rafraichir la page
   doRefresh(event) {
