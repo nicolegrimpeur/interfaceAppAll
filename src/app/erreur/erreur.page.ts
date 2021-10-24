@@ -27,12 +27,13 @@ export class ErreurPage implements OnInit {
   }
 
   checkList() {
-    this.httpService.getJson('All').toPromise().then(() => {
-      this.router.navigate(['/']).then();
+    this.httpService.getJson('All').toPromise()
+      .then(() => {
+        this.router.navigate(['/']).then();
 
-      // on supprime la vérification
-      clearInterval(this.interval);
-    })
+        // on supprime la vérification
+        clearInterval(this.interval);
+      })
       .catch();
   }
 

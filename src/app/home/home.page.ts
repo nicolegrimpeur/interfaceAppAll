@@ -113,7 +113,6 @@ export class HomePage {
     await alert.onDidDismiss().then((result) => {
       if (result.role !== 'cancel') {
         this.httpService.addRes(result.data.values.name, result.data.values.id).toPromise().then().catch((err) => {
-          console.log(err);
           if (err.status === 200) {
             this.display.display({code: 'La résidence a bien été créé', color: 'success'});
           } else if (err.status === 201) {

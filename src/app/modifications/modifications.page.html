@@ -7,6 +7,9 @@
 
     <ion-title>{{infos.name !== undefined ? 'Résidence ' + infos.name : 'All'}}</ion-title>
 
+    <ion-button slot="end" style="margin-right: 2vw" color="medium" (click)="ionViewWillEnter()">
+      Annuler
+    </ion-button>
     <ion-button slot="end" style="margin-right: 2vw">
       Enregistrer
     </ion-button>
@@ -101,6 +104,25 @@
         <ion-textarea class="petit" spellcheck="true" value="{{news}}"></ion-textarea>
       </ion-item>
     </ion-card-content>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color="medium" (click)="addLineNews()">
+              <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+              Ajouter une ligne
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" color="medium" (click)="removeLine('news')">
+              <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+              Supprimer la dernière ligne
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
   </ion-card>
 
 
@@ -143,6 +165,25 @@
         <ion-textarea class="petit" spellcheck="true" value="{{col[idCol]}}"></ion-textarea>
       </ion-item>
     </ion-card-content>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color="medium" (click)="addLineColInfo()">
+              <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+              Ajouter une colonne d'informations
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" color="medium" (click)="removeLine('colInfo')">
+              <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+              Supprimer la dernière colonne d'informations
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
   </ion-card>
 
 
@@ -166,6 +207,25 @@
         <ion-label>Nom du logo (infos <a title="Lien vers le site de logos ionic" href="https://ionic.io/ionicons" target="_blank">ici</a>) : </ion-label>
         <ion-textarea class="petit" spellcheck="true" value="{{bulle.logo}}"></ion-textarea>
       </ion-item>
+    </ion-card-content>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color="medium" (click)="addLineBulles()">
+              <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+              Ajouter une bulle
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" color="medium" (click)="removeLine('bullesLien')">
+              <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+              Supprimer la dernière bulle
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 </ion-content>

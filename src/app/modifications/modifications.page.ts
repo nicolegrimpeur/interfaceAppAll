@@ -30,11 +30,13 @@ export class ModificationsPage implements OnInit {
   ionViewWillEnter() {
     let after = false;
     // récupère l'email dans le lien
-    for (const i of this.router.url) {
-      if (after && i !== '=') {
-        this.id += i;
-      } else if (i === '?') {
-        after = true;
+    if (this.id === '') {
+      for (const i of this.router.url) {
+        if (after && i !== '=') {
+          this.id += i;
+        } else if (i === '?') {
+          after = true;
+        }
       }
     }
 
@@ -42,6 +44,35 @@ export class ModificationsPage implements OnInit {
       this.infos = result;
     })
   }
+
+  enregistrer() {
+
+  }
+
+  addLineNews() {
+    this.infos.news.push('');
+  }
+
+  addLineColInfo() {
+    this.infos.colInfo.push({
+      title: '',
+      info1: '',
+      info2: ''
+    });
+  }
+
+  addLineBulles() {
+    this.infos.bullesLien.push({
+      title: '',
+      href: '',
+      logo: ''
+    });
+  }
+
+  removeLine(id) {
+    this.infos[id].pop();
+  }
+
 
   //
   // clickEvent(info, infosOrLiens) {
