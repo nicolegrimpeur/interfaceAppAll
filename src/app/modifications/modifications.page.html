@@ -10,7 +10,7 @@
     <ion-button slot="end" style="margin-right: 2vw" color="medium" (click)="ionViewWillEnter()">
       Annuler
     </ion-button>
-    <ion-button slot="end" style="margin-right: 2vw">
+    <ion-button slot="end" style="margin-right: 2vw" (click)="enregistrer()">
       Enregistrer
     </ion-button>
   </ion-toolbar>
@@ -21,7 +21,6 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
 
 
   <!--  <br>-->
@@ -77,7 +76,7 @@
     </ion-select>
   </ion-item>
 
-<!--  <ion-card>-->
+  <!--  <ion-card>-->
   <ion-card *ngIf="infos.name !== undefined && (ionSelect.value === 'name' || ionSelect.value === '')">
     <ion-card-header>
       <ion-card-title>
@@ -86,13 +85,14 @@
     </ion-card-header>
     <ion-card-content>
       <ion-item>
-        <ion-textarea class="petit" spellcheck="true" value="{{infos.name}}"></ion-textarea>
+        <ion-textarea class="petit" spellcheck="true" value="{{infos.name}}"
+                      (ionChange)="ionChange($event, 'name')"></ion-textarea>
       </ion-item>
     </ion-card-content>
   </ion-card>
 
 
-<!--  <ion-card>-->
+  <!--  <ion-card>-->
   <ion-card *ngIf="ionSelect.value === 'news' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
@@ -100,8 +100,9 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item *ngFor="let news of infos.news">
-        <ion-textarea class="petit" spellcheck="true" value="{{news}}"></ion-textarea>
+      <ion-item *ngFor="let news of infos.news; let ind = index">
+        <ion-textarea class="petit" spellcheck="true" value="{{news}}"
+                      (ionChange)="ionChange($event, 'news', ind)"></ion-textarea>
       </ion-item>
     </ion-card-content>
 
@@ -126,7 +127,7 @@
   </ion-card>
 
 
-<!--  <ion-card>-->
+  <!--  <ion-card>-->
   <ion-card *ngIf="ionSelect.value === 'infos' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
@@ -135,7 +136,9 @@
     </ion-card-header>
     <ion-card-content *ngFor="let infosOrLiens of ['liens', 'infos']">
       <ion-item>
-        <ion-textarea class="petit" spellcheck="true" value="{{infos['name' + infosOrLiens.slice(0, 1).toUpperCase() + infosOrLiens.slice(1, infosOrLiens.length)]}}"></ion-textarea>
+        <ion-textarea class="petit" spellcheck="true"
+                      value="{{infos['name' + infosOrLiens.slice(0, 1).toUpperCase() + infosOrLiens.slice(1, infosOrLiens.length)]}}"
+                      (ionChange)="ionChange($event, 'name' + infosOrLiens.slice(0, 1).toUpperCase() + infosOrLiens.slice(1, infosOrLiens.length))"></ion-textarea>
       </ion-item>
 
       <ion-grid>
@@ -145,7 +148,7 @@
             <ion-button expand="block" color="medium" fill="solid"> {{ info.id }} </ion-button>
           </ion-col>
           <ion-col>
-            <ion-button expand="block" color="medium" fill="outline"> + </ion-button>
+            <ion-button expand="block" color="medium" fill="outline">+</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -153,16 +156,17 @@
   </ion-card>
 
 
-<!--  <ion-card>-->
+  <!--  <ion-card>-->
   <ion-card *ngIf="ionSelect.value === 'colonnesInfos' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
         Colonnes d'infos
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngFor="let col of infos.colInfo">
+    <ion-card-content *ngFor="let col of infos.colInfo; let ind = index">
       <ion-item *ngFor="let idCol of ['title', 'info1', 'info2']">
-        <ion-textarea class="petit" spellcheck="true" value="{{col[idCol]}}"></ion-textarea>
+        <ion-textarea class="petit" spellcheck="true" value="{{col[idCol]}}"
+                      (ionChange)="ionChange($event, 'colInfo', ind, idCol)"></ion-textarea>
       </ion-item>
     </ion-card-content>
 
@@ -187,25 +191,30 @@
   </ion-card>
 
 
-<!--  <ion-card>-->
+  <!--  <ion-card>-->
   <ion-card *ngIf="ionSelect.value === 'bullesLien' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
         Bulles liens
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngFor="let bulle of infos.bullesLien">
+    <ion-card-content *ngFor="let bulle of infos.bullesLien; let ind = index">
       <ion-item>
-        <ion-label>Titre : </ion-label>
-        <ion-textarea class="petit" spellcheck="true" value="{{bulle.title}}"></ion-textarea>
+        <ion-label>Titre :</ion-label>
+        <ion-textarea class="petit" spellcheck="true" value="{{bulle.title}}"
+                      (ionChange)="ionChange($event, 'bullesLien', ind, 'title')"></ion-textarea>
       </ion-item>
       <ion-item>
-        <ion-label>Lien : </ion-label>
-        <ion-textarea class="petit" spellcheck="true" value="{{bulle.href}}"></ion-textarea>
+        <ion-label>Lien :</ion-label>
+        <ion-textarea class="petit" spellcheck="true" value="{{bulle.href}}"
+                      (ionChange)="ionChange($event, 'bullesLien', ind, 'href')"></ion-textarea>
       </ion-item>
       <ion-item>
-        <ion-label>Nom du logo (infos <a title="Lien vers le site de logos ionic" href="https://ionic.io/ionicons" target="_blank">ici</a>) : </ion-label>
-        <ion-textarea class="petit" spellcheck="true" value="{{bulle.logo}}"></ion-textarea>
+        <ion-label>Nom du logo (infos <a title="Lien vers le site de logos ionic" href="https://ionic.io/ionicons"
+                                         target="_blank">ici</a>) :
+        </ion-label>
+        <ion-textarea class="petit" spellcheck="true" value="{{bulle.logo}}"
+                      (ionChange)="ionChange($event, 'bullesLien', ind, 'logo')"></ion-textarea>
       </ion-item>
     </ion-card-content>
 

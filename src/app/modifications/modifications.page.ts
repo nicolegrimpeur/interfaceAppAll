@@ -45,10 +45,6 @@ export class ModificationsPage implements OnInit {
     })
   }
 
-  enregistrer() {
-
-  }
-
   addLineNews() {
     this.infos.news.push('');
   }
@@ -73,6 +69,30 @@ export class ModificationsPage implements OnInit {
     this.infos[id].pop();
   }
 
+  ionChange(event, ...path) {
+    switch (path.length) {
+      case 1:
+        this.infos[path[0]] = event.detail.value;
+        break;
+      case 2:
+        this.infos[path[0]][path[1]] = event.detail.value;
+        break;
+      case 3:
+        this.infos[path[0]][path[1]][path[2]] = event.detail.value;
+        break;
+    }
+    console.log(this.infos);
+  }
+
+  enregistrer() {
+    this.httpService.uploadModifs(this.infos, this.id).toPromise()
+      .then(() => {
+        console.log('ok !?');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   //
   // clickEvent(info, infosOrLiens) {
