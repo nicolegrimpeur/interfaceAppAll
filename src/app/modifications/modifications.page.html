@@ -157,7 +157,7 @@
     <ion-card-content *ngIf="currentModif.id !== ''">
       <ion-item *ngFor="let info of infos[currentModif.infosOrLiens][currentModif.id].content; let ind = index">
         <ion-textarea spellcheck="true" value="{{info}}"
-                      (ionChange)="ionChange($event, currentModif.infosOrLiens, currentModif.id, 'content', ind)"></ion-textarea>
+                      (ionBlur)="ionChange($event, currentModif.infosOrLiens, currentModif.id, 'content', ind)"></ion-textarea>
       </ion-item>
     </ion-card-content>
   </ion-card>

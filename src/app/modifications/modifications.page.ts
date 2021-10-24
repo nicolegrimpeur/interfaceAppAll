@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {InfoResidenceModel} from '../shared/models/info-residence-model';
-import {HttpService} from "../core/http.service";
+import {HttpService} from '../core/http.service';
+import {Display} from '../shared/class/display';
 
 @Component({
   selector: 'app-modifications',
@@ -18,7 +19,8 @@ export class ModificationsPage implements OnInit {
 
   constructor(
     private httpService: HttpService,
-    private router: Router
+    private router: Router,
+    private display: Display
   ) {
   }
 
@@ -79,19 +81,20 @@ export class ModificationsPage implements OnInit {
         this.infos[path[0]][path[1]][path[2]] = event.detail.value;
         break;
       case 4:
-        this.infos[path[0]][path[1]][path[2]][path[3]] = event.detail.value;
+        this.infos[path[0]][path[1]][path[2]][path[3]] = event.target.firstChild.firstChild.value;
         break;
     }
-    console.log(this.infos);
   }
 
   enregistrer() {
     this.httpService.uploadModifs(this.infos, this.id).toPromise()
-      .then(() => {
-        console.log('ok !?');
-      })
+      .then()
       .catch(err => {
-        console.log(err);
+        if (err.status === 200) {
+          this.display.display({code: 'Modification effectué', color: 'success'}).then();
+        } else {
+          this.display.display('Une erreur a eu lieu : ' + err.name).then();
+        }
       });
   }
 
@@ -107,32 +110,6 @@ export class ModificationsPage implements OnInit {
       this.currentModif.infosOrLiens = infosOrLiens;
     }
   }
-  //
-  // ajoutLigneModif() {
-  //   this.modifications.push('');
-  // }
-  //
-  // ajoutTheme(infoOrLien) {
-  //   // ajouter alert pour demander le nom
-  // }
-  //
-  // enregistrer() {
-  //   const listeTextArea = this.divElement.nativeElement.children;
-  //   const tmp = [];
-  //
-  //   for (const item of listeTextArea) {
-  //     tmp.push(item.firstChild.value);
-  //   }
-  //   this.infos[this.currentModif.infosOrLiens][this.currentModif.id].content = tmp;
-  //
-  //   this.httpService.uploadModifs(this.infos, this.id).toPromise()
-  //     .then(() => {
-  //       console.log('ok !?');
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
 
   // événement pour rafraichir la page
   doRefresh(event) {
