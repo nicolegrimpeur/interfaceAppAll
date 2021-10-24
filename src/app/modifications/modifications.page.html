@@ -75,7 +75,7 @@
   </ion-item>
 
 <!--  <ion-card>-->
-  <ion-card *ngIf="infos.name !== undefined && ionSelect.value === 'name'">
+  <ion-card *ngIf="infos.name !== undefined && (ionSelect.value === 'name' || ionSelect.value === '')">
     <ion-card-header>
       <ion-card-title>
         Nom de la résidence
@@ -90,7 +90,7 @@
 
 
 <!--  <ion-card>-->
-  <ion-card *ngIf="ionSelect.value === 'news'">
+  <ion-card *ngIf="ionSelect.value === 'news' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
         Nouveautés
@@ -105,7 +105,7 @@
 
 
 <!--  <ion-card>-->
-  <ion-card *ngIf="ionSelect.value === 'infos'">
+  <ion-card *ngIf="ionSelect.value === 'infos' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
         Informations
@@ -132,7 +132,7 @@
 
 
 <!--  <ion-card>-->
-  <ion-card *ngIf="ionSelect.value === 'colonnesInfos'">
+  <ion-card *ngIf="ionSelect.value === 'colonnesInfos' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
         Colonnes d'infos
@@ -147,7 +147,7 @@
 
 
 <!--  <ion-card>-->
-  <ion-card *ngIf="ionSelect.value === 'bullesLien'">
+  <ion-card *ngIf="ionSelect.value === 'bullesLien' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
         Bulles liens

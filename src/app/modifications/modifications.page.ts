@@ -42,6 +42,7 @@ export class ModificationsPage implements OnInit {
       this.infos = result;
     })
   }
+
   //
   // clickEvent(info, infosOrLiens) {
   //   console.log(info);

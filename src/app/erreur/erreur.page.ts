@@ -33,6 +33,7 @@ export class ErreurPage implements OnInit {
       // on supprime la vérification
       clearInterval(this.interval);
     })
+      .catch();
   }
 
   // événement pour rafraichir la page
