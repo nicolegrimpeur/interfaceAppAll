@@ -94,10 +94,7 @@ export class HomePage {
       ],
       buttons: [{
         text: 'Cancel',
-        role: 'cancel',
-        handler: () => {
-          console.log('Confirm Cancel');
-        }
+        role: 'cancel'
       }, {
         text: 'Ok',
         role: 'ok'

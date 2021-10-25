@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {InfoResidenceModel} from '../shared/models/info-residence-model';
 import {HttpService} from '../core/http.service';
 import {Display} from '../shared/class/display';
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-modifications',
@@ -20,7 +21,8 @@ export class ModificationsPage implements OnInit {
   constructor(
     private httpService: HttpService,
     private router: Router,
-    private display: Display
+    private display: Display,
+    private alertController: AlertController
   ) {
   }
 
@@ -52,6 +54,7 @@ export class ModificationsPage implements OnInit {
       .catch(err => {
         this.router.navigate(['/erreur']).then();
       });
+    this.currentModif = {id: '', infosOrLiens: ''};
   }
 
   // ajoute une ligne pour les news
@@ -80,6 +83,41 @@ export class ModificationsPage implements OnInit {
   // supprime le dernier élément de id
   removeLine(id) {
     this.infos[id].pop();
+  }
+
+  async addInformations(infosOrLiens) {
+    let alert = await this.alertController.create({
+      header: 'Nom du nouveau thème',
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: 'Nom'
+        }
+      ],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel'
+      }, {
+        text: 'Ok',
+        role: 'ok'
+      }]
+    });
+
+    // on affiche l'alerte
+    await alert.present();
+
+    // on attend que l'utilisateur supprime l'alerte
+    await alert.onDidDismiss().then((result) => {
+      if (result.role !== 'cancel') {
+        this.infos[infosOrLiens].push({
+          id: result.data.values.name,
+          content: ['']
+        });
+        this.clickEvent(result.data.values.name, infosOrLiens);
+      }
+    });
+
   }
 
   // ajoute une ligne pour l'information affiché
@@ -125,15 +163,16 @@ export class ModificationsPage implements OnInit {
   // se lance au click sur enregistrer
   // enregistre toutes les modifications en ligne
   enregistrer() {
-    this.httpService.uploadModifs(this.infos, this.id).toPromise()
-      .then()
-      .catch(err => {
-        if (err.status === 200) {
-          this.display.display({code: 'Modification effectué', color: 'success'}).then();
-        } else {
-          this.display.display('Une erreur a eu lieu : ' + err.name).then();
-        }
-      });
+    console.log(this.infos);
+    // this.httpService.uploadModifs(this.infos, this.id).toPromise()
+    //   .then()
+    //   .catch(err => {
+    //     if (err.status === 200) {
+    //       this.display.display({code: 'Modification effectué', color: 'success'}).then();
+    //     } else {
+    //       this.display.display('Une erreur a eu lieu : ' + err.name).then();
+    //     }
+    //   });
   }
 
   // événement pour rafraichir la page
