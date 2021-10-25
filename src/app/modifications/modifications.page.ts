@@ -3,7 +3,8 @@ import {Router} from '@angular/router';
 import {InfoResidenceModel} from '../shared/models/info-residence-model';
 import {HttpService} from '../core/http.service';
 import {Display} from '../shared/class/display';
-import {AlertController} from "@ionic/angular";
+import {ActionSheetController, AlertController} from '@ionic/angular';
+import {toArray} from "rxjs/operators";
 
 @Component({
   selector: 'app-modifications',
@@ -22,7 +23,8 @@ export class ModificationsPage implements OnInit {
     private httpService: HttpService,
     private router: Router,
     private display: Display,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private actionSheetController: ActionSheetController
   ) {
   }
 
@@ -117,7 +119,42 @@ export class ModificationsPage implements OnInit {
         this.clickEvent(result.data.values.name, infosOrLiens);
       }
     });
+  }
 
+  async removeInformation(infosOrLiens) {
+    const tmp = [];
+
+    // on parcours la liste de plannings et on rajoute un bouton pour chaque
+    for (const info of this.infos[infosOrLiens]) {
+      tmp.push({
+        text: info.id,
+        role: info.id
+      });
+    }
+
+    // on rajoute le bouton annuler
+    tmp.push({
+      text: 'Annuler',
+      role: 'cancel'
+    });
+
+    // création de l'action sheet
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Quel thème voulez-vous supprimer ?',
+      cssClass: 'actionSheet',
+      buttons: tmp
+    });
+    // on affiche l'action sheet
+    await actionSheet.present();
+
+    // lorsqu'une sélection est faite, on récupère son attribut
+    await actionSheet.onDidDismiss().then(result => {
+      if (result.role !== 'cancel') {
+        let id = this.infos[infosOrLiens].findIndex(res => res.id === result.role);
+        this.infos[infosOrLiens] = this.infos[infosOrLiens].slice(0, id).concat(this.infos[infosOrLiens].slice(id + 1, this.infos[infosOrLiens].length));
+        this.currentModif = {id: '', infosOrLiens: ''};
+      }
+    });
   }
 
   // ajoute une ligne pour l'information affiché
@@ -151,7 +188,7 @@ export class ModificationsPage implements OnInit {
   // fonction lancé au click sur un des boutons de la partie information
   clickEvent(idInfo, infosOrLiens) {
     // stocke l'id clické, son contenu, ainsi que si c'est une info ou un lien
-    if (this.currentModif.id === idInfo) {
+    if (this.currentModif.id === this.infos[infosOrLiens].findIndex(res => res.id === idInfo)) {
       this.currentModif.id = '';
       this.currentModif.infosOrLiens = '';
     } else {
