@@ -4,15 +4,14 @@ import {InfoResidenceModel} from '../shared/models/info-residence-model';
 import {HttpService} from '../core/http.service';
 import {Display} from '../shared/class/display';
 import {ActionSheetController, AlertController} from '@ionic/angular';
-import {toArray} from "rxjs/operators";
+import {Clipboard} from "@capacitor/clipboard";
 
 @Component({
   selector: 'app-modifications',
   templateUrl: './modifications.page.html',
-  styleUrls: ['./modifications.page.scss'],
+  styleUrls: ['./modifications.page.scss']
 })
 export class ModificationsPage implements OnInit {
-  @ViewChild('divElement') divElement;
   @ViewChild('ionSelect') ionSelect;
 
   private id = ''; // stocke l'id de la résidence
@@ -24,7 +23,8 @@ export class ModificationsPage implements OnInit {
     private router: Router,
     private display: Display,
     private alertController: AlertController,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    // private clipBoard: Clipboard
   ) {
   }
 
@@ -57,6 +57,46 @@ export class ModificationsPage implements OnInit {
         this.router.navigate(['/erreur']).then();
       });
     this.currentModif = {id: '', infosOrLiens: ''};
+  }
+
+  // permet d'ajouter au presse papier l'élément voulu
+  async createLink() {
+    // créer l'alerte Avec les inputs
+    let alert = await this.alertController.create({
+      header: 'Informations pour le lien à copier',
+      inputs: [
+        {
+          name: 'link',
+          type: 'text',
+          placeholder: 'Lien'
+        },
+        {
+          name: 'description',
+          type: 'text',
+          placeholder: 'Description'
+        }
+      ],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel'
+      }, {
+        text: 'Copier',
+        role: 'ok'
+      }]
+    });
+
+    // on affiche l'alerte
+    await alert.present();
+
+    // on attend que l'utilisateur supprime l'alerte
+    await alert.onDidDismiss().then((result) => {
+      if (result.role !== 'cancel') {
+        // on ajoute au presse papier la balise de lien
+        Clipboard.write({
+          string: "<a href='" + result.data.values.link +"' title='" + result.data.values.description +"' target='_blank'>" + result.data.values.description +"</a>"
+        });
+      }
+    });
   }
 
   // ajoute une ligne pour les news
