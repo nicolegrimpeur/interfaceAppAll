@@ -150,8 +150,13 @@ export class ModificationsPage implements OnInit {
     // lorsqu'une sélection est faite, on récupère son attribut
     await actionSheet.onDidDismiss().then(result => {
       if (result.role !== 'cancel') {
+        // on récupère l'id a suupprimé
         let id = this.infos[infosOrLiens].findIndex(res => res.id === result.role);
+
+        // suppression de la partie a supprimé
         this.infos[infosOrLiens] = this.infos[infosOrLiens].slice(0, id).concat(this.infos[infosOrLiens].slice(id + 1, this.infos[infosOrLiens].length));
+
+        // suppression de la partie affiché
         this.currentModif = {id: '', infosOrLiens: ''};
       }
     });
@@ -200,16 +205,15 @@ export class ModificationsPage implements OnInit {
   // se lance au click sur enregistrer
   // enregistre toutes les modifications en ligne
   enregistrer() {
-    console.log(this.infos);
-    // this.httpService.uploadModifs(this.infos, this.id).toPromise()
-    //   .then()
-    //   .catch(err => {
-    //     if (err.status === 200) {
-    //       this.display.display({code: 'Modification effectué', color: 'success'}).then();
-    //     } else {
-    //       this.display.display('Une erreur a eu lieu : ' + err.name).then();
-    //     }
-    //   });
+    this.httpService.uploadModifs(this.infos, this.id).toPromise()
+      .then()
+      .catch(err => {
+        if (err.status === 200) {
+          this.display.display({code: 'Modification effectué', color: 'success'}).then();
+        } else {
+          this.display.display('Une erreur a eu lieu : ' + err.name).then();
+        }
+      });
   }
 
   // événement pour rafraichir la page
