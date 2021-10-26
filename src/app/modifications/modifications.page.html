@@ -33,6 +33,7 @@
     <ion-label>Choisissez l'information à modifier</ion-label>
     <ion-select #ionSelect interface="popover" value="">
       <ion-select-option value=""></ion-select-option>
+      <ion-select-option value="image">Image de description</ion-select-option>
       <ion-select-option *ngIf="infos.name !== undefined" value="name">Nom de la résidence</ion-select-option>
       <ion-select-option value="news">Nouveautés</ion-select-option>
       <ion-select-option value="infos">Zone d'informations</ion-select-option>
@@ -40,6 +41,18 @@
       <ion-select-option value="bullesLien">Bulles liens</ion-select-option>
     </ion-select>
   </ion-item>
+
+  <ion-card  *ngIf="ionSelect.value === 'image' || ionSelect.value === ''">
+    <ion-card-content>
+      <ion-button color="medium" (click)="accessGallery()">
+        <ion-icon slot="start" name="image-outline"></ion-icon>
+        Ajouter une image
+      </ion-button>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-img #ionImg></ion-img>
+    </ion-card-content>
+  </ion-card>
 
 
   <!-- Nom de la résidence -->

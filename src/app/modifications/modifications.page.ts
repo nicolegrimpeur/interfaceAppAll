@@ -4,7 +4,8 @@ import {InfoResidenceModel} from '../shared/models/info-residence-model';
 import {HttpService} from '../core/http.service';
 import {Display} from '../shared/class/display';
 import {ActionSheetController, AlertController} from '@ionic/angular';
-import {Clipboard} from "@capacitor/clipboard";
+import {Clipboard} from '@capacitor/clipboard';
+import {Camera, CameraResultType} from '@capacitor/camera';
 
 @Component({
   selector: 'app-modifications',
@@ -13,6 +14,7 @@ import {Clipboard} from "@capacitor/clipboard";
 })
 export class ModificationsPage implements OnInit {
   @ViewChild('ionSelect') ionSelect;
+  @ViewChild('ionImg') ionImg;
 
   private id = ''; // stocke l'id de la résidence
   public infos = new InfoResidenceModel();  // stockage du json
@@ -23,8 +25,7 @@ export class ModificationsPage implements OnInit {
     private router: Router,
     private display: Display,
     private alertController: AlertController,
-    private actionSheetController: ActionSheetController,
-    // private clipBoard: Clipboard
+    private actionSheetController: ActionSheetController
   ) {
   }
 
@@ -93,10 +94,34 @@ export class ModificationsPage implements OnInit {
       if (result.role !== 'cancel') {
         // on ajoute au presse papier la balise de lien
         Clipboard.write({
-          string: "<a href='" + result.data.values.link +"' title='" + result.data.values.description +"' target='_blank'>" + result.data.values.description +"</a>"
+          string: "<a href='" + result.data.values.link + "' title='" + result.data.values.description + "' target='_blank'>" + result.data.values.description + "</a>"
         });
+
+        this.display.display({code: 'Lien copié au presse papier', color: 'success'}).then();
       }
     });
+  }
+
+  async accessGallery() {
+    let image;
+
+    await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    })
+      .then(result => {
+        image = result;
+      })
+      .catch((err) => {
+        this.display.display('Une erreur a eu lieu : ' + err).then();
+      });
+
+    if (image.format !== 'png') {
+      this.display.display('L\'image doit être au format png').then();
+    } else {
+      this.ionImg.src = image.webPath;
+    }
   }
 
   // ajoute une ligne pour les news
