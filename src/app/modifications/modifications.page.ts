@@ -5,7 +5,7 @@ import {HttpService} from '../core/http.service';
 import {Display} from '../shared/class/display';
 import {ActionSheetController, AlertController} from '@ionic/angular';
 import {Clipboard} from '@capacitor/clipboard';
-import {Camera, CameraResultType} from '@capacitor/camera';
+import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 
 @Component({
   selector: 'app-modifications',
@@ -104,14 +104,19 @@ export class ModificationsPage implements OnInit {
 
   async accessGallery() {
     let image;
+    let blobData;
 
-    await Camera.getPhoto({
+    const options = {
       quality: 90,
       allowEditing: true,
-      resultType: CameraResultType.Uri
-    })
+      resultType: CameraResultType.Uri,
+      sourceType: CameraSource.Photos
+    }
+
+    await Camera.getPhoto(options)
       .then(result => {
         image = result;
+        blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
       })
       .catch((err) => {
         this.display.display('Une erreur a eu lieu : ' + err).then();
@@ -120,8 +125,36 @@ export class ModificationsPage implements OnInit {
     if (image.format !== 'png') {
       this.display.display('L\'image doit être au format png').then();
     } else {
-      this.ionImg.src = image.webPath;
+      console.log(image);
+
+      // this.httpService.uploadImg(blobData, 'residence' + this.id, image.format).toPromise()
+      //   .then(result => {
+      //     this.display.display({code: 'L\'image a bien été ajouté', color: 'success'}).then();
+      //   })
+      //   .catch(err => {
+      //     this.display.display('Une erreur a eu lieu' + err).then();
+      //   });
     }
+  }
+
+  // permet de convertir l'image en blob
+  b64toBlob(b64Data, contentType = '', sliceSize = 512) {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, { type: contentType });
   }
 
   // ajoute une ligne pour les news

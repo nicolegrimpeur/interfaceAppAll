@@ -36,11 +36,16 @@ export class HttpService {
 
   // upload les modifications sur le serveur
   uploadModifs(data, id): Observable<any> {
-    let headers = new HttpHeaders();
-    headers.append("Accept", 'application/json');
-    headers.append('Content-Type', 'application/json' );
-
     const url = this.baseUrl + 'upload/' + id + '/' + Langue.value;
     return this.http.post(url, data, {headers: {'Content-Type': 'application/json'}});
+  }
+
+  uploadImg(blobData, nom, format): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', blobData, nom + '.' + format);
+    formData.append('name', nom);
+
+    const url = this.baseUrl + 'upload/';
+    return this.http.post(url, formData);
   }
 }
