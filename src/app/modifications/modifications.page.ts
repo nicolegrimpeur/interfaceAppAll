@@ -14,7 +14,7 @@ import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 })
 export class ModificationsPage implements OnInit {
   @ViewChild('ionSelect') ionSelect;
-  @ViewChild('ionImg') ionImg;
+  @ViewChild('labelImage') labelImage;
 
   private id = ''; // stocke l'id de la résidence
   public infos = new InfoResidenceModel();  // stockage du json
@@ -109,7 +109,7 @@ export class ModificationsPage implements OnInit {
     const options = {
       quality: 90,
       allowEditing: true,
-      resultType: CameraResultType.Uri,
+      resultType: CameraResultType.Base64,
       sourceType: CameraSource.Photos
     }
 
@@ -125,15 +125,15 @@ export class ModificationsPage implements OnInit {
     if (image.format !== 'png') {
       this.display.display('L\'image doit être au format png').then();
     } else {
-      console.log(image);
-
-      // this.httpService.uploadImg(blobData, 'residence' + this.id, image.format).toPromise()
-      //   .then(result => {
-      //     this.display.display({code: 'L\'image a bien été ajouté', color: 'success'}).then();
-      //   })
-      //   .catch(err => {
-      //     this.display.display('Une erreur a eu lieu' + err).then();
-      //   });
+      this.httpService.uploadImg(blobData, 'residence' + this.id, image.format).toPromise()
+        .then(result => {
+          this.display.display({code: 'L\'image a bien été ajouté', color: 'success'}).then();
+          this.labelImage.el.textContent = 'L\'image a bien été mise en ligne';
+        })
+        .catch(err => {
+          this.display.display('Une erreur a eu lieu' + err).then();
+          this.labelImage.el.textContent = 'Une erreur a eu lieu, merci de réessayer';
+        });
     }
   }
 

@@ -23,8 +23,8 @@
   </ion-refresher>
 
   <ion-card>
-    <ion-card-content>
-      Si vous souhaitez créer un lien clickable, cliquez <a (click)="createLink()"><b>ici</b></a>
+    <ion-card-content (click)="createLink()">
+      Si vous souhaitez créer un lien clickable, cliquez ici
     </ion-card-content>
   </ion-card>
 
@@ -44,15 +44,11 @@
 
   <ion-card  *ngIf="ionSelect.value === 'image' || ionSelect.value === ''">
     <ion-card-content>
-      <ion-button color="medium" (click)="accessGallery()">
+      <ion-button color="medium" (click)="accessGallery()" slot="start">
         <ion-icon slot="start" name="image-outline"></ion-icon>
         Ajouter une image
       </ion-button>
-
-<!--      <ion-input type="file" (ionChange)="recupFile($event)"></ion-input>-->
-    </ion-card-content>
-    <ion-card-content>
-      <ion-img #ionImg></ion-img>
+      <ion-label #labelImage style="margin-left: 2vmin"></ion-label>
     </ion-card-content>
   </ion-card>
 
