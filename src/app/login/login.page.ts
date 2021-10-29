@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  // permet d'afficher le mot de passe pour le mdp rp
+  // permet d'afficher le mot de passe
   toggleMdp() {
     if (this.iconMdp.name === 'eye-outline') {
       this.iconMdp.name = 'eye-off-outline';
@@ -36,10 +36,12 @@ export class LoginPage implements OnInit {
     }
   }
 
-  // événement au click du sumbit
+  // événement au click du submit
   submit() {
+    // on vérifie que le mot de passe entré est correct
     this.httpService.checkMdpRp(this.mdp).toPromise().then()
       .catch(err => {
+        // si status = 200, alors le mot de passe est correct
         if (err.status === 200) {
           this.display.display({code: 'Mot de passe correct', color: 'success'}).then();
           Login.isLog = true;
