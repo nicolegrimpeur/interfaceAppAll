@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Vérification du mot de passe RP avant modifications</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Merci de rentrer le mot de passe RP</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+<!--        <ion-input [(ngModel)]="mdp" type="password" placeholder="Entrez le mot de passe" required></ion-input>-->
+        <ion-input #inputMdp [(ngModel)]="mdp" type="password" autocomplete="current-password" required="true"
+                   placeholder="Entrez le mot de passe"></ion-input>
+        <ion-icon #iconMdp (click)="toggleMdp()" name="eye-off-outline"></ion-icon>
+      </ion-item>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-button color="medium" (click)="submit()">Connexion</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'erreur',
     loadChildren: () => import('./erreur/erreur.module').then( m => m.ErreurPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
 ];
 
 @NgModule({

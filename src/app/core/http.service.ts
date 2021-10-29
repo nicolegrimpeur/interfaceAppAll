@@ -10,8 +10,9 @@ import {ListeModel} from '../shared/models/liste-model';
   providedIn: 'root'
 })
 export class HttpService {
-  // private baseUrl = 'https://nicob.ovh/apiJson/';
-  private baseUrl = 'http://localhost:1080/apiJson/';
+  // private base = 'https://nicob.ovh/'
+  private base = 'http://localhost:1080/'
+  private baseUrl = this.base + 'apiJson/';
 
   constructor(private readonly http: HttpClient) {
   }
@@ -47,5 +48,10 @@ export class HttpService {
 
     const url = this.baseUrl + 'upload/';
     return this.http.post(url, formData);
+  }
+
+  checkMdpRp(mdp): Observable<any> {
+    const url = this.base + 'mdpRp/' + mdp;
+    return this.http.get<any>(url);
   }
 }

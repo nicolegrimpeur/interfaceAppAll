@@ -5,6 +5,8 @@ import {HttpService} from '../core/http.service';
 import {ListeModel} from '../shared/models/liste-model';
 import {Router} from '@angular/router';
 import {Display} from '../shared/class/display';
+import {Login} from '../shared/login';
+import {StorageService} from '../core/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +21,7 @@ export class HomePage {
   constructor(
     private alertController: AlertController,
     private httpService: HttpService,
+    private storageService: StorageService,
     private route: Router,
     private display: Display
   ) {
@@ -118,6 +121,14 @@ export class HomePage {
           this.ionViewWillEnter();
         });
       }
+    });
+  }
+
+  verrouillage() {
+    Login.isLog = false;
+    this.storageService.setLogin().then();
+    this.route.navigate(['/login']).then(() => {
+      this.display.display({code: 'Verrouillage réussi', color: 'success'}).then();
     });
   }
 
