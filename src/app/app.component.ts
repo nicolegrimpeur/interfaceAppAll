@@ -13,8 +13,7 @@ export class AppComponent {
     private router: Router,
     private storageService: StorageService
   ) {
-    this.checkIsLog();
-
+    this.checkIsLog().then();
   }
 
   async checkIsLog() {

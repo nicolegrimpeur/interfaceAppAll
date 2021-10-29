@@ -270,24 +270,6 @@ export class ModificationsPage implements OnInit {
     this.infos[this.currentModif.infosOrLiens][this.currentModif.id].content.pop();
   }
 
-  // stocke les modifications effectués sur la textarea en local
-  ionChange(event, ...path) {
-    switch (path.length) {
-      case 1:
-        this.infos[path[0]] = event.detail.value;
-        break;
-      case 2:
-        this.infos[path[0]][path[1]] = event.detail.value;
-        break;
-      case 3:
-        this.infos[path[0]][path[1]][path[2]] = event.detail.value;
-        break;
-      case 4:
-        this.infos[path[0]][path[1]][path[2]][path[3]] = event.target.firstChild.firstChild.value;
-        break;
-    }
-  }
-
   // fonction lancé au click sur un des boutons de la partie information
   clickEvent(idInfo, infosOrLiens) {
     // stocke l'id clické, son contenu, ainsi que si c'est une info ou un lien
@@ -312,6 +294,11 @@ export class ModificationsPage implements OnInit {
           this.display.display('Une erreur a eu lieu : ' + err.name).then();
         }
       });
+  }
+
+  // fonction utilisant la propriété trackBy de ngFor dans le cas de l'affichage des infos
+  inputNgFor(index, item) {
+    return index;
   }
 
   // événement pour rafraichir la page

@@ -42,7 +42,7 @@
     </ion-select>
   </ion-item>
 
-  <ion-card  *ngIf="ionSelect.value === 'image' || ionSelect.value === ''">
+  <ion-card *ngIf="ionSelect.value === 'image' || ionSelect.value === ''">
     <ion-card-content>
       <ion-button color="medium" (click)="accessGallery()" slot="start">
         <ion-icon slot="start" name="image-outline"></ion-icon>
@@ -62,8 +62,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-item>
-        <ion-textarea class="petit" spellcheck="true" value="{{infos.name}}"
-                      (ionChange)="ionChange($event, 'name')"></ion-textarea>
+        <ion-textarea class="petit" spellcheck="true" [(ngModel)]="infos.name"></ion-textarea>
       </ion-item>
     </ion-card-content>
   </ion-card>
@@ -78,8 +77,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-item *ngFor="let news of infos.news; let ind = index">
-        <ion-textarea class="petit" spellcheck="true" value="{{news}}"
-                      (ionChange)="ionChange($event, 'news', ind)"></ion-textarea>
+        <ion-textarea class="petit" spellcheck="true" [(ngModel)]="infos.news[ind]"></ion-textarea>
       </ion-item>
     </ion-card-content>
 
@@ -114,15 +112,15 @@
     <ion-card-content *ngFor="let infosOrLiens of ['liens', 'infos']">
       <ion-item>
         <ion-textarea class="petit" spellcheck="true"
-                      value="{{infos['name' + infosOrLiens.slice(0, 1).toUpperCase() + infosOrLiens.slice(1, infosOrLiens.length)]}}"
-                      (ionChange)="ionChange($event, 'name' + infosOrLiens.slice(0, 1).toUpperCase() + infosOrLiens.slice(1, infosOrLiens.length))"></ion-textarea>
+                      [(ngModel)]="infos['name' + infosOrLiens.slice(0, 1).toUpperCase() + infosOrLiens.slice(1, infosOrLiens.length)]"></ion-textarea>
       </ion-item>
 
       <ion-grid>
         <ion-row>
           <!-- ajout des barres en fonction du json -->
           <ion-col *ngFor="let info of infos[infosOrLiens]">
-            <ion-button expand="block" color="medium" fill="solid" (click)="clickEvent(info.id, infosOrLiens)"> {{ info.id }} </ion-button>
+            <ion-button expand="block" color="medium" fill="solid"
+                        (click)="clickEvent(info.id, infosOrLiens)"> {{ info.id }} </ion-button>
           </ion-col>
           <ion-col>
             <ion-button expand="block" color="medium" fill="outline" (click)="addInformations(infosOrLiens)">
@@ -139,9 +137,10 @@
     </ion-card-content>
 
     <ion-card-content *ngIf="currentModif.id !== ''">
-      <ion-item *ngFor="let info of infos[currentModif.infosOrLiens][currentModif.id].content; let ind = index">
-        <ion-textarea spellcheck="true" value="{{info}}"
-                      (ionBlur)="ionChange($event, currentModif.infosOrLiens, currentModif.id, 'content', ind)"></ion-textarea>
+      <ion-item
+        *ngFor="let info of infos[currentModif.infosOrLiens][currentModif.id].content; let ind = index; trackBy: inputNgFor">
+        <ion-textarea spellcheck="true"
+                      [(ngModel)]="infos[currentModif.infosOrLiens][currentModif.id].content[ind]"></ion-textarea>
       </ion-item>
     </ion-card-content>
 
@@ -175,8 +174,7 @@
     </ion-card-header>
     <ion-card-content *ngFor="let col of infos.colInfo; let ind = index">
       <ion-item *ngFor="let idCol of ['title', 'info1', 'info2']">
-        <ion-textarea class="petit" spellcheck="true" value="{{col[idCol]}}"
-                      (ionChange)="ionChange($event, 'colInfo', ind, idCol)"></ion-textarea>
+        <ion-textarea class="petit" spellcheck="true" [(ngModel)]="col[idCol]"></ion-textarea>
       </ion-item>
     </ion-card-content>
 
@@ -211,20 +209,17 @@
     <ion-card-content *ngFor="let bulle of infos.bullesLien; let ind = index">
       <ion-item>
         <ion-label>Titre :</ion-label>
-        <ion-textarea class="petit" spellcheck="true" value="{{bulle.title}}"
-                      (ionChange)="ionChange($event, 'bullesLien', ind, 'title')"></ion-textarea>
+        <ion-textarea class="petit" spellcheck="true" [(ngModel)]="bulle.title"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>Lien :</ion-label>
-        <ion-textarea class="petit" spellcheck="true" value="{{bulle.href}}"
-                      (ionChange)="ionChange($event, 'bullesLien', ind, 'href')"></ion-textarea>
+        <ion-textarea class="petit" spellcheck="true" [(ngModel)]="bulle.href"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>Nom du logo (infos <a title="Lien vers le site de logos ionic" href="https://ionic.io/ionicons"
                                          target="_blank">ici</a>) :
         </ion-label>
-        <ion-textarea class="petit" spellcheck="true" value="{{bulle.logo}}"
-                      (ionChange)="ionChange($event, 'bullesLien', ind, 'logo')"></ion-textarea>
+        <ion-textarea class="petit" spellcheck="true" [(ngModel)]="bulle.logo"></ion-textarea>
       </ion-item>
     </ion-card-content>
 
