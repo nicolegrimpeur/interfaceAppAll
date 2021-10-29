@@ -4,7 +4,9 @@ ion-item {
 }
 
 .petit {
-  height: 6vh;
+  @media (min-width: 768px) {
+    height: 6vh;
+  }
 }
 
 ion-card {

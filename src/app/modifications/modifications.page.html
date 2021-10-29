@@ -7,10 +7,10 @@
 
     <ion-title>{{infos.name !== undefined ? 'Résidence ' + infos.name : 'All'}}</ion-title>
 
-    <ion-button slot="end" style="margin-right: 2vw" color="medium" (click)="ionViewWillEnter()">
+    <ion-button *ngIf="!mobile" slot="end" style="margin-right: 2vw" color="medium" (click)="ionViewWillEnter()">
       Annuler
     </ion-button>
-    <ion-button slot="end" style="margin-right: 2vw" (click)="enregistrer()">
+    <ion-button *ngIf="!mobile" slot="end" style="margin-right: 2vw" (click)="enregistrer()">
       Enregistrer
     </ion-button>
   </ion-toolbar>
@@ -25,6 +25,25 @@
   <ion-card>
     <ion-card-content (click)="createLink()">
       Si vous souhaitez créer un lien clickable, cliquez ici
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="mobile">
+    <ion-card-content style="padding: 0">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color="medium" (click)="ionViewWillEnter()">
+              Annuler
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="enregistrer()">
+              Enregistrer
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 

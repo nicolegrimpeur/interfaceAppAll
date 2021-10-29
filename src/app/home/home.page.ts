@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Langue} from '../shared/langue';
-import {AlertController, Platform} from '@ionic/angular';
+import {AlertController} from '@ionic/angular';
 import {HttpService} from '../core/http.service';
 import {ListeModel} from '../shared/models/liste-model';
 import {Router} from '@angular/router';

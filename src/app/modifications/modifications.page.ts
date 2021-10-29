@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {InfoResidenceModel} from '../shared/models/info-residence-model';
 import {HttpService} from '../core/http.service';
 import {Display} from '../shared/class/display';
-import {ActionSheetController, AlertController} from '@ionic/angular';
+import {ActionSheetController, AlertController, Platform} from '@ionic/angular';
 import {Clipboard} from '@capacitor/clipboard';
 import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 
@@ -19,13 +19,15 @@ export class ModificationsPage implements OnInit {
   private id = ''; // stocke l'id de la résidence
   public infos = new InfoResidenceModel();  // stockage du json
   public currentModif = {id: '', infosOrLiens: ''}; // stocke les informations du click sur un bouton de la card informations
+  public mobile = this.platform.platforms().findIndex(res => res === 'mobile') !== -1; // true si l'on est sur téléphone, false sinon
 
   constructor(
     private httpService: HttpService,
     private router: Router,
     private display: Display,
     private alertController: AlertController,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    private platform: Platform
   ) {
   }
 
