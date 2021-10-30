@@ -124,8 +124,8 @@ export class ModificationsPage implements OnInit {
         this.display.display('Une erreur a eu lieu : ' + err).then();
       });
 
-    if (image.format !== 'png') {
-      this.display.display('L\'image doit être au format png').then();
+    if (image.format !== 'jpeg') {
+      this.display.display('L\'image doit être au format jpg').then();
     } else {
       this.httpService.uploadImg(blobData, 'residence' + this.id, image.format).toPromise()
         .then(result => {
