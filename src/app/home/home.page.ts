@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Langue} from '../shared/langue';
-import {AlertController} from '@ionic/angular';
+import {ActionSheetController, AlertController} from '@ionic/angular';
 import {HttpService} from '../core/http.service';
 import {ListeModel} from '../shared/models/liste-model';
 import {Router} from '@angular/router';
@@ -20,6 +20,7 @@ export class HomePage {
 
   constructor(
     private alertController: AlertController,
+    private actionSheetController: ActionSheetController,
     private httpService: HttpService,
     private storageService: StorageService,
     private route: Router,
@@ -115,6 +116,75 @@ export class HomePage {
             this.display.display({code: 'La résidence a bien été créé', color: 'success'}).then();
           } else if (err.status === 201) {
             this.display.display('La résidence existe déjà').then();
+          } else {
+            this.route.navigate(['/erreur']).then();
+          }
+          this.ionViewWillEnter();
+        });
+      }
+    });
+  }
+
+  // permet de supprimer une résidence
+  async removeResidence() {
+    const tmp = [];
+
+    // on parcours la liste de plannings et on rajoute un bouton pour chaque
+    for (const res of this.liste.residence) {
+      tmp.push({
+        text: res.name,
+        role: res.name
+      });
+    }
+
+    // on rajoute le bouton annuler
+    tmp.push({
+      text: 'Annuler',
+      role: 'cancel'
+    });
+
+    // création de l'action sheet
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Quel résidence voulez-vous supprimer ?',
+      cssClass: 'actionSheet',
+      buttons: tmp
+    });
+    // on affiche l'action sheet
+    await actionSheet.present();
+
+    // lorsqu'une sélection est faite, on récupère son attribut
+    await actionSheet.onDidDismiss().then(result => {
+      if (result.role !== 'cancel' && result.role !== 'backdrop') {
+        this.removeResidenceConfirm(result.role).then();
+      }
+    });
+  }
+
+  async removeResidenceConfirm(id) {
+    let alert = await this.alertController.create({
+      cssClass: 'ajoutRes',
+      header: 'Etes-vous sur de vouloir supprimer la résidence ' + id + ' ?',
+      subHeader: 'La suppression supprimera toutes les données liés à cette résidence et est non réversible',
+      buttons: [{
+        text: 'Non',
+        role: 'cancel'
+      }, {
+        text: 'Oui',
+        role: 'oui'
+      }]
+    });
+
+    // on affiche l'alerte
+    await alert.present();
+
+    // on attend que l'utilisateur supprime l'alerte
+    await alert.onDidDismiss().then(result => {
+      if (result.role !== 'cancel') {
+        this.httpService.removeRes(id).toPromise().then().catch((err) => {
+          if (err.status === 200) {
+            this.display.display({code: 'La résidence a bien été supprimé', color: 'success'}).then();
+          } else if (err.status === 201) {
+            this.display.display('La résidence n\'existe pas encore').then();
           } else {
             this.route.navigate(['/erreur']).then();
           }

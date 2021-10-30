@@ -249,8 +249,8 @@ export class ModificationsPage implements OnInit {
 
     // lorsqu'une sélection est faite, on récupère son attribut
     await actionSheet.onDidDismiss().then(result => {
-      if (result.role !== 'cancel') {
-        // on récupère l'id a suupprimé
+      if (result.role !== 'cancel' && result.role !== 'backdrop') {
+        // on récupère l'id à supprimer
         let id = this.infos[infosOrLiens].findIndex(res => res.id === result.role);
 
         // suppression de la partie a supprimé

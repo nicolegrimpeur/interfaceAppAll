@@ -35,10 +35,15 @@ export class HttpService {
     return this.http.get<any>(url);
   }
 
+  // supprime la résidence
+  removeRes(id: string): Observable<any> {
+    const url = this.baseUrl + 'removeRes/' + id;
+    return this.http.get<any>(url);
+  }
+
   // upload les modifications sur le serveur
   uploadModifs(data, id): Observable<any> {
     const url = this.baseUrl + 'upload/' + id + '/' + Langue.value;
-    console.log(data);
     return this.http.post(url, data, {headers: {'Content-Type': 'application/json'}});
   }
 

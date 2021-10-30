@@ -26,10 +26,21 @@
   <ion-button *ngFor="let residence of liste.residence" expand="block" color="medium"
               (click)="clickEvent(residence.id)">{{residence.name}}</ion-button>
 
-  <!-- bouton pour ajouter une résidence -->
-  <ion-button expand="block" color="medium" fill="outline" (click)="addResidence()">
-    <ion-icon name="add"></ion-icon>
-  </ion-button>
+  <!-- bouton pour ajouter et supprimer une résidence -->
+  <ion-grid class="lessTop">
+    <ion-row>
+      <ion-col class="lessTop">
+        <ion-button expand="block" color="medium" fill="outline" (click)="addResidence()" class="lessTop">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col class="lessTop">
+        <ion-button expand="block" color="medium" fill="outline" (click)="removeResidence()" class="lessTop">
+          <ion-icon name="remove"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
 <ion-footer>
