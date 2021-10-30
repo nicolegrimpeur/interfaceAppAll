@@ -1,9 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Modifications des infos des résidences (Langue : {{langue === 'fr' ? 'Français' : 'Anglais'}})
+      Choisissez votre résidence {{!mobile ? '(Langue : ' + (langue === 'fr' ? 'Francais)' : 'Anglais)') : ''}}
+<!--      Modifications des infos des résidences (Langue : {{langue === 'fr' ? 'Français' : 'Anglais'}})-->
     </ion-title>
-    <ion-button style="margin: 0 2vmin" slot="end" (click)="verrouillage()" color="medium">Verrouiller</ion-button>
+    <ion-button *ngIf="!mobile" style="margin: 0 2vmin" slot="end" (click)="verrouillage()" color="medium">Verrouiller</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -41,6 +42,8 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-button *ngIf="mobile" (click)="verrouillage()" color="medium" expand="block">Verrouiller</ion-button>
 </ion-content>
 
 <ion-footer>

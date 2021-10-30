@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Langue} from '../shared/langue';
-import {ActionSheetController, AlertController} from '@ionic/angular';
+import {ActionSheetController, AlertController, Platform} from '@ionic/angular';
 import {HttpService} from '../core/http.service';
 import {ListeModel} from '../shared/models/liste-model';
 import {Router} from '@angular/router';
@@ -17,6 +17,7 @@ import {StorageService} from '../core/storage.service';
 export class HomePage {
   public langue: string; // stocke la lanque courante
   public liste = new ListeModel(); // stocke la liste des résidences
+  public mobile = this.platform.platforms().findIndex(res => res === 'mobile') !== -1; // true si l'on est sur téléphone, false sinon
 
   constructor(
     private alertController: AlertController,
@@ -24,7 +25,8 @@ export class HomePage {
     private httpService: HttpService,
     private storageService: StorageService,
     private route: Router,
-    private display: Display
+    private display: Display,
+    private platform: Platform
   ) {
     // initialisation de la langue courante
     this.langue = Langue.value;
