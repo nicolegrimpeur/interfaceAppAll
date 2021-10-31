@@ -51,7 +51,7 @@
   <ion-item style="margin: 0 3vw">
     <ion-label>Choisissez l'information à modifier</ion-label>
     <ion-select #ionSelect interface="popover" value="">
-      <ion-select-option value=""></ion-select-option>
+      <ion-select-option value="">Tout</ion-select-option>
       <ion-select-option value="image">Image de description</ion-select-option>
       <ion-select-option *ngIf="infos.name !== undefined" value="name">Nom de la résidence</ion-select-option>
       <ion-select-option value="news">Nouveautés</ion-select-option>
@@ -192,8 +192,17 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content *ngFor="let col of infos.colInfo; let ind = index">
-      <ion-item *ngFor="let idCol of ['title', 'info1', 'info2']">
-        <ion-textarea class="petit" spellcheck="true" [(ngModel)]="col[idCol]"></ion-textarea>
+      <ion-item>
+        <ion-label>Titre :</ion-label>
+        <ion-textarea class="petit" spellcheck="true" [(ngModel)]="col.title"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Info1 :</ion-label>
+        <ion-textarea class="petit" spellcheck="true" [(ngModel)]="col.info1"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Info2 :</ion-label>
+        <ion-textarea class="petit" spellcheck="true" [(ngModel)]="col.info2"></ion-textarea>
       </ion-item>
     </ion-card-content>
 
@@ -203,13 +212,13 @@
           <ion-col>
             <ion-button expand="block" color="medium" (click)="addLineColInfo()">
               <ion-icon slot="start" name="add-circle-outline"></ion-icon>
-              Ajouter une colonne d'informations
+              Ajouter une colonne
             </ion-button>
           </ion-col>
           <ion-col>
             <ion-button expand="block" color="medium" (click)="removeLine('colInfo')">
               <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
-              Supprimer la dernière colonne d'informations
+              Supprimer la dernière colonne
             </ion-button>
           </ion-col>
         </ion-row>
@@ -235,7 +244,7 @@
         <ion-textarea class="petit" spellcheck="true" [(ngModel)]="bulle.href"></ion-textarea>
       </ion-item>
       <ion-item>
-        <ion-label>Nom du logo (infos <a title="Lien vers le site de logos ionic" href="https://ionic.io/ionicons"
+        <ion-label class="pointer">Nom du logo (infos <a title="Lien vers le site de logos ionic" href="https://ionic.io/ionicons"
                                          target="_blank">ici</a>) :
         </ion-label>
         <ion-textarea class="petit" spellcheck="true" [(ngModel)]="bulle.logo"></ion-textarea>

@@ -113,16 +113,20 @@ export class HomePage {
     // on attend que l'utilisateur supprime l'alerte
     await alert.onDidDismiss().then((result) => {
       if (result.role !== 'cancel') {
-        this.httpService.addRes(result.data.values.name, result.data.values.id).toPromise().then().catch((err) => {
-          if (err.status === 200) {
-            this.display.display({code: 'La résidence a bien été créé', color: 'success'}).then();
-          } else if (err.status === 201) {
-            this.display.display('La résidence existe déjà').then();
-          } else {
-            this.route.navigate(['/erreur']).then();
-          }
-          this.ionViewWillEnter();
-        });
+        if (result.data.values.name !== '' && result.data.values.id !== '') {
+          this.httpService.addRes(result.data.values.name, result.data.values.id).toPromise().then().catch((err) => {
+            if (err.status === 200) {
+              this.display.display({code: 'La résidence a bien été créé', color: 'success'}).then();
+            } else if (err.status === 201) {
+              this.display.display('La résidence existe déjà').then();
+            } else {
+              this.route.navigate(['/erreur']).then();
+            }
+            this.ionViewWillEnter();
+          });
+        } else {
+          this.display.display('Une information n\'a pas été rentré').then();
+        }
       }
     });
   }
@@ -135,7 +139,7 @@ export class HomePage {
     for (const res of this.liste.residence) {
       tmp.push({
         text: res.name,
-        role: res.name
+        role: [res.name, res.id]
       });
     }
 
@@ -162,10 +166,10 @@ export class HomePage {
     });
   }
 
-  async removeResidenceConfirm(id) {
+  async removeResidenceConfirm(infosSuppr) {
     let alert = await this.alertController.create({
       cssClass: 'ajoutRes',
-      header: 'Etes-vous sur de vouloir supprimer la résidence ' + id + ' ?',
+      header: 'Etes-vous sur de vouloir supprimer la résidence ' + infosSuppr[0] + ' ?',
       subHeader: 'La suppression supprimera toutes les données liés à cette résidence et est non réversible',
       buttons: [{
         text: 'Non',
@@ -182,7 +186,7 @@ export class HomePage {
     // on attend que l'utilisateur supprime l'alerte
     await alert.onDidDismiss().then(result => {
       if (result.role !== 'cancel') {
-        this.httpService.removeRes(id).toPromise().then().catch((err) => {
+        this.httpService.removeRes(infosSuppr[1]).toPromise().then().catch((err) => {
           if (err.status === 200) {
             this.display.display({code: 'La résidence a bien été supprimé', color: 'success'}).then();
           } else if (err.status === 201) {
