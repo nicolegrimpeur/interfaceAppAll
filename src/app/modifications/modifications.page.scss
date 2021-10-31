@@ -16,3 +16,9 @@ ion-card {
 .pointer {
   pointer-events:all!important;
 }
+
+ion-segment {
+  //width: 20vw;
+  //margin-left: 30vw;
+  margin-inside: 0;
+}

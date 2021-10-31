@@ -23,9 +23,32 @@
   </ion-refresher>
 
   <ion-card>
-    <ion-card-content (click)="createLink()">
-      Si vous souhaitez créer un lien clickable, cliquez ici
-    </ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card-content (click)="createLink()">
+            Si vous souhaitez créer un lien clickable, cliquez ici
+          </ion-card-content>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card-content style="padding: 0">
+            <ion-segment value={{this.langue}} (ionChange)="changeLangue($event)" color="medium">
+              <ion-segment-button value="fr">
+                <label *ngIf="!mobile && langue === 'fr'">Français</label>
+                <label *ngIf="!mobile && langue === 'en'">French</label>
+                <label *ngIf="mobile">Fr</label>
+              </ion-segment-button>
+              <ion-segment-button value="en">
+                <label *ngIf="!mobile && langue === 'fr'">Anglais</label>
+                <label *ngIf="!mobile && langue === 'en'">English</label>
+                <label *ngIf="mobile">En</label>
+              </ion-segment-button>
+            </ion-segment>
+          </ion-card-content>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
   </ion-card>
 
   <ion-card *ngIf="mobile">

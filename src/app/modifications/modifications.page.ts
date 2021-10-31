@@ -6,6 +6,7 @@ import {Display} from '../shared/class/display';
 import {ActionSheetController, AlertController, Platform} from '@ionic/angular';
 import {Clipboard} from '@capacitor/clipboard';
 import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
+import {Langue} from '../shared/langue';
 
 @Component({
   selector: 'app-modifications',
@@ -20,6 +21,7 @@ export class ModificationsPage implements OnInit {
   public infos = new InfoResidenceModel();  // stockage du json
   public currentModif = {id: '', infosOrLiens: ''}; // stocke les informations du click sur un bouton de la card informations
   public mobile = this.platform.platforms().findIndex(res => res === 'mobile') !== -1; // true si l'on est sur téléphone, false sinon
+  public langue: string; // stocke la lanque courante
 
   constructor(
     private httpService: HttpService,
@@ -29,6 +31,8 @@ export class ModificationsPage implements OnInit {
     private actionSheetController: ActionSheetController,
     private platform: Platform
   ) {
+    // initialisation de la langue courante
+    this.langue = Langue.value;
   }
 
   ngOnInit() {
@@ -60,6 +64,41 @@ export class ModificationsPage implements OnInit {
         this.router.navigate(['/erreur']).then();
       });
     this.currentModif = {id: '', infosOrLiens: ''};
+  }
+
+  // fonction lancé par le switch de langue
+  async changeLangue(event: any) {
+    await this.enregistrer();
+    Langue.value = event.detail.value;
+    this.addAlert().then();
+    this.ionViewWillEnter();
+  }
+
+  // affiche l'alerte
+  async addAlert() {
+    let alert;
+    if (Langue.value === 'fr') {
+      alert = await this.alertController.create({
+        subHeader: 'Changement de la langue en Français',
+        message: 'Vous pouvez maintenant modifier les pages en Français',
+        buttons: ['OK']
+      });
+    } else if (Langue.value === 'en') {
+      alert = await this.alertController.create({
+        subHeader: 'Langue switch to English',
+        message: 'Vous pouvez maintenant modifier les pages en Anglais',
+        buttons: ['OK']
+      });
+    }
+
+    // on affiche l'alerte
+    await alert.present();
+
+    // on attend que l'utilisateur supprime l'alerte
+    await alert.onDidDismiss();
+
+    // on change la langue de la page
+    this.langue = Langue.value;
   }
 
   // permet d'ajouter au presse papier l'élément voulu
@@ -291,7 +330,7 @@ export class ModificationsPage implements OnInit {
       .then()
       .catch(err => {
         if (err.status === 200) {
-          this.display.display({code: 'Modification effectué', color: 'success'}).then();
+          this.display.display({code: 'Modification enregistré', color: 'success'}).then();
         } else {
           this.display.display('Une erreur a eu lieu : ' + err.name).then();
         }

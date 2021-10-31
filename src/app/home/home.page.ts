@@ -15,7 +15,6 @@ import {StorageService} from '../core/storage.service';
   providers: [HttpService]
 })
 export class HomePage {
-  public langue: string; // stocke la lanque courante
   public liste = new ListeModel(); // stocke la liste des résidences
   public mobile = this.platform.platforms().findIndex(res => res === 'mobile') !== -1; // true si l'on est sur téléphone, false sinon
 
@@ -28,8 +27,6 @@ export class HomePage {
     private display: Display,
     private platform: Platform
   ) {
-    // initialisation de la langue courante
-    this.langue = Langue.value;
   }
 
   ionViewWillEnter() {
@@ -46,39 +43,6 @@ export class HomePage {
   // redirige l'utilisateur au click sur un bouton
   clickEvent(id) {
     this.route.navigateByUrl('modifications?' + id).then();
-  }
-
-  // fonction lancé par le switch de langue
-  changeLangue(event: any) {
-    Langue.value = event.detail.value;
-    this.addAlert().then();
-  }
-
-  // affiche l'alerte
-  async addAlert() {
-    let alert;
-    if (Langue.value === 'fr') {
-      alert = await this.alertController.create({
-        subHeader: 'Changement de la langue en Français',
-        message: 'Vous pouvez maintenant modifier les pages en Français',
-        buttons: ['OK']
-      });
-    } else if (Langue.value === 'en') {
-      alert = await this.alertController.create({
-        subHeader: 'Langue switch to English',
-        message: 'Vous pouvez maintenant modifier les pages en Anglais',
-        buttons: ['OK']
-      });
-    }
-
-    // on affiche l'alerte
-    await alert.present();
-
-    // on attend que l'utilisateur supprime l'alerte
-    await alert.onDidDismiss();
-
-    // on change la langue de la page
-    this.langue = Langue.value;
   }
 
   // ajoute une nouvelle résidence

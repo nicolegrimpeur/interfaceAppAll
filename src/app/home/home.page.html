@@ -1,8 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Choisissez votre résidence {{!mobile ? '(Langue : ' + (langue === 'fr' ? 'Francais)' : 'Anglais)') : ''}}
-<!--      Modifications des infos des résidences (Langue : {{langue === 'fr' ? 'Français' : 'Anglais'}})-->
+      Choisissez votre résidence
     </ion-title>
     <ion-button *ngIf="!mobile" style="margin: 0 2vmin" slot="end" (click)="verrouillage()" color="medium">Verrouiller</ion-button>
   </ion-toolbar>
@@ -45,25 +44,3 @@
 
   <ion-button *ngIf="mobile" (click)="verrouillage()" color="medium" expand="block">Verrouiller</ion-button>
 </ion-content>
-
-<ion-footer>
-  <ion-card>
-    <ion-card-content>
-      Vous modifiez actuellement les informations de votre résidence en {{langue === 'fr' ? 'Français' : 'Anglais'}}
-    </ion-card-content>
-    <ion-card-content>
-      Vous pouvez changer la langue de modification juste en dessous
-    </ion-card-content>
-  </ion-card>
-
-  <ion-segment value={{this.langue}} (ionChange)="changeLangue($event)">
-    <ion-segment-button value="fr">
-      <label *ngIf="langue === 'fr'">Français</label>
-      <label *ngIf="langue === 'en'">French</label>
-    </ion-segment-button>
-    <ion-segment-button value="en">
-      <label *ngIf="langue === 'fr'">Anglais</label>
-      <label *ngIf="langue === 'en'">English</label>
-    </ion-segment-button>
-  </ion-segment>
-</ion-footer>
