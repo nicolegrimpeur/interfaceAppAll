@@ -77,19 +77,11 @@ export class ModificationsPage implements OnInit {
   // affiche l'alerte
   async addAlert() {
     let alert;
-    if (Langue.value === 'fr') {
-      alert = await this.alertController.create({
-        subHeader: 'Changement de la langue en Français',
-        message: 'Vous pouvez maintenant modifier les pages en Français',
-        buttons: ['OK']
-      });
-    } else if (Langue.value === 'en') {
-      alert = await this.alertController.create({
-        subHeader: 'Langue switch to English',
-        message: 'Vous pouvez maintenant modifier les pages en Anglais',
-        buttons: ['OK']
-      });
-    }
+    alert = await this.alertController.create({
+      subHeader: Langue.value === 'fr' ? 'Changement de la langue en Français' : 'Langue switch to English',
+      message: Langue.value === 'fr' ? 'Vous pouvez maintenant modifier la page en Français' : 'You can now edit the page in English',
+      buttons: ['OK']
+    });
 
     // on affiche l'alerte
     await alert.present();
@@ -164,16 +156,18 @@ export class ModificationsPage implements OnInit {
       });
 
     if (image.format !== 'jpeg') {
-      this.display.display('L\'image doit être au format jpg').then();
+      this.display.display(this.langue === 'fr' ? 'L\'image doit être au format jpg' : 'The image must be in jpg format').then();
     } else {
       this.httpService.uploadImg(blobData, 'residence' + this.id, image.format).toPromise()
         .then(result => {
-          this.display.display({code: 'L\'image a bien été ajouté', color: 'success'}).then();
-          this.labelImage.el.textContent = 'L\'image a bien été mise en ligne';
+          this.display.display({code: this.langue === 'fr' ?'L\'image a bien été ajouté' : 'The image has been added', color: 'success'}).then();
+          this.labelImage.el.textContent =
+            this.langue === 'fr' ? 'L\'image a bien été mise en ligne' : 'The image has been uploaded';
         })
         .catch(err => {
-          this.display.display('Une erreur a eu lieu' + err).then();
-          this.labelImage.el.textContent = 'Une erreur a eu lieu, merci de réessayer';
+          this.display.display((this.langue === 'fr' ? 'Une erreur a eu lieu' : 'An error has occurred') + err).then();
+          this.labelImage.el.textContent =
+            this.langue === 'fr' ? 'Une erreur a eu lieu, merci de réessayer' : 'An error has occurred, please try again';
         });
     }
   }
@@ -195,7 +189,7 @@ export class ModificationsPage implements OnInit {
       byteArrays.push(byteArray);
     }
 
-    return new Blob(byteArrays, { type: contentType });
+    return new Blob(byteArrays, {type: contentType});
   }
 
   // ajoute une ligne pour les news
@@ -228,7 +222,7 @@ export class ModificationsPage implements OnInit {
 
   async addInformations(infosOrLiens) {
     let alert = await this.alertController.create({
-      header: 'Nom du nouveau thème',
+      header: this.langue === 'fr' ? 'Nom du nouveau thème' : 'Name of the new theme',
       inputs: [
         {
           name: 'name',
@@ -346,9 +340,9 @@ export class ModificationsPage implements OnInit {
       .then()
       .catch(err => {
         if (err.status === 200) {
-          this.display.display({code: 'Modification enregistré', color: 'success'}).then();
+          this.display.display({code: this.langue === 'fr' ? 'Modification enregistré' : 'Registered change', color: 'success'}).then();
         } else {
-          this.display.display('Une erreur a eu lieu : ' + err.name).then();
+          this.display.display((this.langue === 'fr' ? 'Une erreur a eu lieu : ' : 'An error has occurred : ') + err.name).then();
         }
       });
   }
