@@ -118,7 +118,7 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item *ngFor="let news of infos.news; let ind = index">
+      <ion-item *ngFor="let news of infos.news; let ind = index; trackBy: inputNgFor">
         <ion-textarea class="petit" spellcheck="true" [(ngModel)]="infos.news[ind]"></ion-textarea>
       </ion-item>
     </ion-card-content>
@@ -151,7 +151,7 @@
         Informations
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngFor="let infosOrLiens of ['liens', 'infos']">
+    <ion-card-content *ngFor="let infosOrLiens of ['liens', 'infos']; let indInfosOrLiens = index">
       <ion-item>
         <ion-textarea class="petit" spellcheck="true"
                       [(ngModel)]="infos['name' + infosOrLiens.slice(0, 1).toUpperCase() + infosOrLiens.slice(1, infosOrLiens.length)]"></ion-textarea>
@@ -160,9 +160,9 @@
       <ion-grid>
         <ion-row>
           <!-- ajout des barres en fonction du json -->
-          <ion-col *ngFor="let info of infos[infosOrLiens]">
-            <ion-button expand="block" color="medium" fill="solid"
-                        (click)="clickEvent(info.id, infosOrLiens)"> {{ info.id }} </ion-button>
+          <ion-col *ngFor="let info of infos[infosOrLiens]; let indInfo = index">
+            <ion-button expand="block" color="medium" fill="solid" id="{{indInfosOrLiens * 10 + indInfo}}"
+                        (click)="clickEvent(info.id, infosOrLiens, indInfosOrLiens * 10 + indInfo)"> {{ info.id }} </ion-button>
           </ion-col>
           <ion-col>
             <ion-button expand="block" color="medium" fill="outline" (click)="addInformations(infosOrLiens)">
@@ -211,7 +211,7 @@
   <ion-card *ngIf="ionSelect.value === 'colonnesInfos' || ionSelect.value === ''">
     <ion-card-header>
       <ion-card-title>
-        Colonnes d'infos
+        Colonnes de renseignements
       </ion-card-title>
     </ion-card-header>
     <ion-card-content *ngFor="let col of infos.colInfo; let ind = index">

@@ -19,7 +19,7 @@ export class ModificationsPage implements OnInit {
 
   private id = ''; // stocke l'id de la résidence
   public infos = new InfoResidenceModel();  // stockage du json
-  public currentModif = {id: '', infosOrLiens: ''}; // stocke les informations du click sur un bouton de la card informations
+  public currentModif = {id: '', infosOrLiens: '', idButton: ''}; // stocke les informations du click sur un bouton de la card informations
   public mobile = this.platform.platforms().findIndex(res => res === 'mobile') !== -1; // true si l'on est sur téléphone, false sinon
   public langue: string; // stocke la lanque courante
 
@@ -63,7 +63,7 @@ export class ModificationsPage implements OnInit {
       .catch(err => {
         this.router.navigate(['/erreur']).then();
       });
-    this.currentModif = {id: '', infosOrLiens: ''};
+    this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
   }
 
   // fonction lancé par le switch de langue
@@ -255,7 +255,7 @@ export class ModificationsPage implements OnInit {
           id: result.data.values.name,
           content: ['']
         });
-        this.clickEvent(result.data.values.name, infosOrLiens);
+        this.clickEvent(result.data.values.name, infosOrLiens, '');
       }
     });
   }
@@ -296,7 +296,7 @@ export class ModificationsPage implements OnInit {
         this.infos[infosOrLiens] = this.infos[infosOrLiens].slice(0, id).concat(this.infos[infosOrLiens].slice(id + 1, this.infos[infosOrLiens].length));
 
         // suppression de la partie affiché
-        this.currentModif = {id: '', infosOrLiens: ''};
+        this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
       }
     });
   }
@@ -312,14 +312,30 @@ export class ModificationsPage implements OnInit {
   }
 
   // fonction lancé au click sur un des boutons de la partie information
-  clickEvent(idInfo, infosOrLiens) {
+  async clickEvent(idInfo, infosOrLiens, id) {
+    // si un bouton a déjà été sélectionné, on lui enlève sa sélection
+    if (this.currentModif.idButton !== '') {
+      document.getElementById(this.currentModif.idButton).setAttribute('fill', 'solid');
+    }
+    // si l'id est vide (nouveau bouton)
+    if (id === '') {
+      // l'html a pas le temps de se recharger avec le nouveau bouton avant d'essayer de récupérer le bouton
+      // du coup un petit délai pour laisser le temps à l'html de se recharger
+      await new Promise(f => setTimeout(f, 10));
+      id = (infosOrLiens === 'liens' ? 0 : 10) + this.infos[infosOrLiens].length - 1;
+    }
+
+    // bouton à modifier
+    const button = document.getElementById(id);
     // stocke l'id clické, son contenu, ainsi que si c'est une info ou un lien
-    if (this.currentModif.id === this.infos[infosOrLiens].findIndex(res => res.id === idInfo)) {
-      this.currentModif.id = '';
-      this.currentModif.infosOrLiens = '';
+    if (this.currentModif.id === this.infos[infosOrLiens].findIndex(res => res.id === idInfo) && this.currentModif.infosOrLiens === infosOrLiens) {
+      this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
+      button.setAttribute('fill', 'solid');
     } else {
       this.currentModif.id = this.infos[infosOrLiens].findIndex(res => res.id === idInfo);
       this.currentModif.infosOrLiens = infosOrLiens;
+      this.currentModif.idButton = id;
+      button.setAttribute('fill', 'outline');
     }
   }
 
