@@ -216,8 +216,54 @@ export class ModificationsPage implements OnInit {
   }
 
   // supprime le dernier élément de id
-  removeLine(id) {
-    this.infos[id].pop();
+  async removeLine(idInfos) {
+    // this.infos[id].pop();
+
+    const tmp = [];
+
+    // on parcours la liste de plannings et on rajoute un bouton pour chaque
+    for (const info of this.infos[idInfos]) {
+      if (info.title === undefined) {
+        tmp.push({
+          text: info,
+          role: info
+        });
+      } else {
+        tmp.push({
+          text: info.title,
+          role: info.title
+        });
+      }
+    }
+
+    // on rajoute le bouton annuler
+    tmp.push({
+      text: 'Annuler',
+      role: 'cancel'
+    });
+
+    // création de l'action sheet
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Quel ligne voulez-vous supprimer ?',
+      cssClass: 'actionSheet',
+      buttons: tmp
+    });
+    // on affiche l'action sheet
+    await actionSheet.present();
+
+    // lorsqu'une sélection est faite, on récupère son attribut
+    await actionSheet.onDidDismiss().then(result => {
+      if (result.role !== 'cancel' && result.role !== 'backdrop') {
+        // on récupère l'id à supprimer
+        let id = this.infos[idInfos].findIndex(res => {
+          if (res.title === undefined) return res === result.role
+          else return res.title === result.role
+        });
+
+        // suppression de la partie a supprimé
+        this.infos[idInfos] = this.infos[idInfos].slice(0, id).concat(this.infos[idInfos].slice(id + 1, this.infos[idInfos].length));
+      }
+    });
   }
 
   async addInformations(infosOrLiens) {

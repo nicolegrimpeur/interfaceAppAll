@@ -38,16 +38,18 @@ export class LoginPage implements OnInit {
 
   // événement au click du submit
   submit() {
+    Login.mdp = this.mdp;
     // on vérifie que le mot de passe entré est correct
     this.httpService.checkMdpRp(this.mdp).toPromise().then()
       .catch(err => {
         // si status = 200, alors le mot de passe est correct
         if (err.status === 200) {
           this.display.display({code: 'Mot de passe correct', color: 'success'}).then();
-          Login.isLog = true;
           this.router.navigate(['/']).then();
-        } else {
+        } else if (err.status === 201) {
           this.display.display('Mot de passe incorrect').then();
+        } else {
+          this.router.navigate(['/erreur']).then();
         }
       });
   }

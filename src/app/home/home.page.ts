@@ -165,7 +165,7 @@ export class HomePage {
   }
 
   verrouillage() {
-    Login.isLog = false;
+    Login.mdp = 'false';
     this.storageService.setLogin().then();
     this.route.navigate(['/login']).then(() => {
       this.display.display({code: 'Verrouillage réussi', color: 'success'}).then();

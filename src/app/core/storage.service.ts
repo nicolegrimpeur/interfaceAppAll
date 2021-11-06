@@ -1,23 +1,24 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Storage} from '@capacitor/storage';
-import {Login} from "../shared/login";
+import {Login} from '../shared/login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  constructor() { }
+  constructor() {
+  }
 
   async setLogin() {
     await Storage.set({
-      key: 'isLog',
-      value: String(Login.isLog),
+      key: 'mdp',
+      value: Login.mdp,
     });
   }
 
   async getLogin() {
-    const {value} = await Storage.get({key : 'isLog'});
+    const {value} = await Storage.get({key: 'mdp'});
     return value;
   }
 }
