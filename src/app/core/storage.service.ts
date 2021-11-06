@@ -11,6 +11,7 @@ export class StorageService {
   }
 
   async setLogin() {
+    console.log('set', Login.mdp);
     await Storage.set({
       key: 'mdp',
       value: Login.mdp,

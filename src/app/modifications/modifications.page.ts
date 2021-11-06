@@ -56,13 +56,15 @@ export class ModificationsPage implements OnInit {
 
   // récupère le json de la résidence et le stocke
   getJson() {
-    this.httpService.getJson(this.id).toPromise()
-      .then(result => {
-        this.infos = result;
-      })
-      .catch(err => {
-        this.router.navigate(['/erreur']).then();
-      });
+    if (this.id !== '') {
+      this.httpService.getJson(this.id).toPromise()
+        .then(result => {
+          this.infos = result;
+        })
+        .catch(err => {
+          this.router.navigate(['/erreur']).then();
+        });
+    }
     this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
   }
 
@@ -160,7 +162,10 @@ export class ModificationsPage implements OnInit {
     } else {
       this.httpService.uploadImg(blobData, 'residence' + this.id, image.format).toPromise()
         .then(result => {
-          this.display.display({code: this.langue === 'fr' ?'L\'image a bien été ajouté' : 'The image has been added', color: 'success'}).then();
+          this.display.display({
+            code: this.langue === 'fr' ? 'L\'image a bien été ajouté' : 'The image has been added',
+            color: 'success'
+          }).then();
           this.labelImage.el.textContent =
             this.langue === 'fr' ? 'L\'image a bien été mise en ligne' : 'The image has been uploaded';
         })
@@ -217,53 +222,21 @@ export class ModificationsPage implements OnInit {
 
   // supprime le dernier élément de id
   async removeLine(idInfos) {
-    // this.infos[id].pop();
+    const result = await this.display.actionSheet(
+      this.infos[idInfos],
+      (this.infos[idInfos][0].title === undefined) ? '' : 'title',
+      (Langue.value === 'fr') ? 'Quel ligne voulez-vous supprimer ?' : 'Which line do you want to remove?');
 
-    const tmp = [];
+    if (result !== 'cancel' && result !== 'backdrop') {
+      // on récupère l'id à supprimer
+      let id = this.infos[idInfos].findIndex(res => {
+        if (res.title === undefined) return res === result
+        else return res.title === result
+      });
 
-    // on parcours la liste de plannings et on rajoute un bouton pour chaque
-    for (const info of this.infos[idInfos]) {
-      if (info.title === undefined) {
-        tmp.push({
-          text: info,
-          role: info
-        });
-      } else {
-        tmp.push({
-          text: info.title,
-          role: info.title
-        });
-      }
+      // suppression de la partie a supprimé
+      this.infos[idInfos] = this.infos[idInfos].slice(0, id).concat(this.infos[idInfos].slice(id + 1, this.infos[idInfos].length));
     }
-
-    // on rajoute le bouton annuler
-    tmp.push({
-      text: 'Annuler',
-      role: 'cancel'
-    });
-
-    // création de l'action sheet
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Quel ligne voulez-vous supprimer ?',
-      cssClass: 'actionSheet',
-      buttons: tmp
-    });
-    // on affiche l'action sheet
-    await actionSheet.present();
-
-    // lorsqu'une sélection est faite, on récupère son attribut
-    await actionSheet.onDidDismiss().then(result => {
-      if (result.role !== 'cancel' && result.role !== 'backdrop') {
-        // on récupère l'id à supprimer
-        let id = this.infos[idInfos].findIndex(res => {
-          if (res.title === undefined) return res === result.role
-          else return res.title === result.role
-        });
-
-        // suppression de la partie a supprimé
-        this.infos[idInfos] = this.infos[idInfos].slice(0, id).concat(this.infos[idInfos].slice(id + 1, this.infos[idInfos].length));
-      }
-    });
   }
 
   async addInformations(infosOrLiens) {
@@ -301,44 +274,21 @@ export class ModificationsPage implements OnInit {
   }
 
   async removeInformation(infosOrLiens) {
-    const tmp = [];
+    const result = await this.display.actionSheet(
+      this.infos[infosOrLiens],
+      'id',
+      (Langue.value === 'fr') ? 'Quel thème voulez-vous supprimer ?' : 'Which topic do you want to remove?');
 
-    // on parcours la liste de plannings et on rajoute un bouton pour chaque
-    for (const info of this.infos[infosOrLiens]) {
-      tmp.push({
-        text: info.id,
-        role: info.id
-      });
+    if (result !== 'cancel' && result !== 'backdrop') {
+      // on récupère l'id à supprimer
+      let id = this.infos[infosOrLiens].findIndex(res => res.id === result);
+
+      // suppression de la partie a supprimé
+      this.infos[infosOrLiens] = this.infos[infosOrLiens].slice(0, id).concat(this.infos[infosOrLiens].slice(id + 1, this.infos[infosOrLiens].length));
+
+      // suppression de la partie affiché
+      this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
     }
-
-    // on rajoute le bouton annuler
-    tmp.push({
-      text: 'Annuler',
-      role: 'cancel'
-    });
-
-    // création de l'action sheet
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Quel thème voulez-vous supprimer ?',
-      cssClass: 'actionSheet',
-      buttons: tmp
-    });
-    // on affiche l'action sheet
-    await actionSheet.present();
-
-    // lorsqu'une sélection est faite, on récupère son attribut
-    await actionSheet.onDidDismiss().then(result => {
-      if (result.role !== 'cancel' && result.role !== 'backdrop') {
-        // on récupère l'id à supprimer
-        let id = this.infos[infosOrLiens].findIndex(res => res.id === result.role);
-
-        // suppression de la partie a supprimé
-        this.infos[infosOrLiens] = this.infos[infosOrLiens].slice(0, id).concat(this.infos[infosOrLiens].slice(id + 1, this.infos[infosOrLiens].length));
-
-        // suppression de la partie affiché
-        this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
-      }
-    });
   }
 
   // ajoute une ligne pour l'information affiché
@@ -347,8 +297,28 @@ export class ModificationsPage implements OnInit {
   }
 
   // supprimer une ligne de l'information affiché
-  removeLineInformation() {
-    this.infos[this.currentModif.infosOrLiens][this.currentModif.id].content.pop();
+  async removeLineInformation() {
+    const tmpInfo = this.infos[this.currentModif.infosOrLiens][this.currentModif.id].content;
+
+    const result = await this.display.actionSheet(
+      tmpInfo,
+      '',
+      (Langue.value === 'fr') ? 'Quel ligne voulez-vous supprimer ?' : 'Which line do you want to remove?');
+
+    if (result !== 'cancel' && result !== 'backdrop') {
+      // on récupère l'id à supprimer
+      let id = tmpInfo.findIndex(res => res === result);
+
+      // suppression de la partie a supprimé
+      this.infos[this.currentModif.infosOrLiens][this.currentModif.id].content =
+        tmpInfo.slice(0, id)
+          .concat(tmpInfo.slice(id + 1, tmpInfo.length));
+      console.log(id);
+      console.log(this.infos[this.currentModif.infosOrLiens][this.currentModif.id].content);
+      console.log(tmpInfo);
+      console.log(tmpInfo.slice(0, id));
+      console.log(tmpInfo.slice(id + 1, tmpInfo.length))
+    }
   }
 
   // fonction lancé au click sur un des boutons de la partie information
@@ -386,7 +356,10 @@ export class ModificationsPage implements OnInit {
       .then()
       .catch(err => {
         if (err.status === 200) {
-          this.display.display({code: this.langue === 'fr' ? 'Modification enregistré' : 'Registered change', color: 'success'}).then();
+          this.display.display({
+            code: this.langue === 'fr' ? 'Modification enregistré' : 'Registered change',
+            color: 'success'
+          }).then();
         } else {
           this.display.display((this.langue === 'fr' ? 'Une erreur a eu lieu : ' : 'An error has occurred : ') + err.name).then();
         }

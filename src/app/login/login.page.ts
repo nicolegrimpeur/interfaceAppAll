@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {HttpService} from "../core/http.service";
 import {Display} from "../shared/class/display";
 import {Login} from "../shared/login";
+import {StorageService} from "../core/storage.service";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router,
     private httpService: HttpService,
-    private display: Display
+    private display: Display,
+    private storageService: StorageService
   ) { }
 
   ngOnInit() {
@@ -45,7 +47,9 @@ export class LoginPage implements OnInit {
         // si status = 200, alors le mot de passe est correct
         if (err.status === 200) {
           this.display.display({code: 'Mot de passe correct', color: 'success'}).then();
-          this.router.navigate(['/']).then();
+          this.storageService.setLogin().then(() => {
+            this.router.navigate(['/']).then();
+          });
         } else if (err.status === 201) {
           this.display.display('Mot de passe incorrect').then();
         } else {

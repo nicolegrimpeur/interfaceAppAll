@@ -29,11 +29,9 @@ export class AppComponent {
             .then(() => {})
             .catch(err => {
               // si status = 200, alors le mot de passe est correct
-              if (err.status === 200) {
-                this.router.navigate(['/']).then();
-              } else if (err.status === 201) {
+              if (err.status === 201) {
                 this.router.navigate(['/login']).then();
-              } else {
+              } else if (err.status !== 200) {
                 this.router.navigate(['/erreur']).then();
               }
             });
