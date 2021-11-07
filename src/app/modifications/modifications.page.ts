@@ -228,14 +228,8 @@ export class ModificationsPage implements OnInit {
       (Langue.value === 'fr') ? 'Quel ligne voulez-vous supprimer ?' : 'Which line do you want to remove?');
 
     if (result !== 'cancel' && result !== 'backdrop') {
-      // on récupère l'id à supprimer
-      let id = this.infos[idInfos].findIndex(res => {
-        if (res.title === undefined) return res === result
-        else return res.title === result
-      });
-
-      // suppression de la partie a supprimé
-      this.infos[idInfos] = this.infos[idInfos].slice(0, id).concat(this.infos[idInfos].slice(id + 1, this.infos[idInfos].length));
+      // suppression de la partie à supprimer
+      this.infos[idInfos] = this.infos[idInfos].slice(0, result).concat(this.infos[idInfos].slice(result + 1, this.infos[idInfos].length));
     }
   }
 
@@ -280,11 +274,8 @@ export class ModificationsPage implements OnInit {
       (Langue.value === 'fr') ? 'Quel thème voulez-vous supprimer ?' : 'Which topic do you want to remove?');
 
     if (result !== 'cancel' && result !== 'backdrop') {
-      // on récupère l'id à supprimer
-      let id = this.infos[infosOrLiens].findIndex(res => res.id === result);
-
       // suppression de la partie a supprimé
-      this.infos[infosOrLiens] = this.infos[infosOrLiens].slice(0, id).concat(this.infos[infosOrLiens].slice(id + 1, this.infos[infosOrLiens].length));
+      this.infos[infosOrLiens] = this.infos[infosOrLiens].slice(0, result).concat(this.infos[infosOrLiens].slice(result + 1, this.infos[infosOrLiens].length));
 
       // suppression de la partie affiché
       this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
@@ -306,18 +297,8 @@ export class ModificationsPage implements OnInit {
       (Langue.value === 'fr') ? 'Quel ligne voulez-vous supprimer ?' : 'Which line do you want to remove?');
 
     if (result !== 'cancel' && result !== 'backdrop') {
-      // on récupère l'id à supprimer
-      let id = tmpInfo.findIndex(res => res === result);
-
-      // suppression de la partie a supprimé
       this.infos[this.currentModif.infosOrLiens][this.currentModif.id].content =
-        tmpInfo.slice(0, id)
-          .concat(tmpInfo.slice(id + 1, tmpInfo.length));
-      console.log(id);
-      console.log(this.infos[this.currentModif.infosOrLiens][this.currentModif.id].content);
-      console.log(tmpInfo);
-      console.log(tmpInfo.slice(0, id));
-      console.log(tmpInfo.slice(id + 1, tmpInfo.length))
+        tmpInfo.slice(0, result).concat(tmpInfo.slice(result + 1, tmpInfo.length))
     }
   }
 

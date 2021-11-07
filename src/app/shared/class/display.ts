@@ -52,16 +52,16 @@ export class Display {
     const tmp = [];
 
     // on parcours la liste de plannings et on rajoute un bouton pour chaque
-    for (const info of infos) {
+    for (let i = 0; i < infos.length; i++) {
       if (title === '') {
         tmp.push({
-          text: info,
-          role: info
+          text: infos[i],
+          role: i,
         });
       } else {
         tmp.push({
-          text: info[title],
-          role: info[title]
+          text: infos[i][title],
+          role: i,
         });
       }
     }
