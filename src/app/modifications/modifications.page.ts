@@ -7,6 +7,7 @@ import {ActionSheetController, AlertController, Platform} from '@ionic/angular';
 import {Clipboard} from '@capacitor/clipboard';
 import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 import {Langue} from '../shared/langue';
+import {lastValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-modifications',
@@ -57,7 +58,7 @@ export class ModificationsPage implements OnInit {
   // récupère le json de la résidence et le stocke
   getJson() {
     if (this.id !== '') {
-      this.httpService.getJson(this.id).toPromise()
+      lastValueFrom(this.httpService.getJson(this.id))
         .then(result => {
           this.infos = result;
         })
@@ -160,7 +161,7 @@ export class ModificationsPage implements OnInit {
     if (image.format !== 'jpeg') {
       this.display.display(this.langue === 'fr' ? 'L\'image doit être au format jpg' : 'The image must be in jpg format').then();
     } else {
-      this.httpService.uploadImg(blobData, 'residence' + this.id, image.format).toPromise()
+      lastValueFrom(this.httpService.uploadImg(blobData, 'residence' + this.id, image.format))
         .then(result => {
           this.display.display({
             code: this.langue === 'fr' ? 'L\'image a bien été ajouté' : 'The image has been added',
@@ -333,7 +334,7 @@ export class ModificationsPage implements OnInit {
   // se lance au click sur enregistrer
   // enregistre toutes les modifications en ligne
   enregistrer() {
-    this.httpService.uploadModifs(this.infos, this.id).toPromise()
+    lastValueFrom(this.httpService.uploadModifs(this.infos, this.id))
       .then()
       .catch(err => {
         if (err.status === 200) {

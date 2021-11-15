@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {StorageService} from './core/storage.service';
 import {HttpService} from './core/http.service';
 import {Display} from './shared/class/display';
+import {lastValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,7 @@ export class AppComponent {
         if (result === null) {
           this.storageService.setLogin().then();
         } else {
-          this.httpService.checkMdpRp(result).toPromise()
+          lastValueFrom(this.httpService.checkMdpRp(result))
             .then(() => {})
             .catch(err => {
               // si status = 200, alors le mot de passe est correct

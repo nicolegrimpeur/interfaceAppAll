@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {Display} from '../shared/class/display';
 import {Login} from '../shared/login';
 import {StorageService} from '../core/storage.service';
+import {lastValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +32,7 @@ export class HomePage {
 
   ionViewWillEnter() {
     // récupère la liste
-    this.httpService.getListe().toPromise()
+    lastValueFrom(this.httpService.getListe())
       .then(result => {
         this.liste = result;
       })
@@ -78,7 +79,7 @@ export class HomePage {
     await alert.onDidDismiss().then((result) => {
       if (result.role !== 'cancel') {
         if (result.data.values.name !== '' && result.data.values.id !== '') {
-          this.httpService.addRes(result.data.values.name, result.data.values.id).toPromise().then().catch((err) => {
+          lastValueFrom(this.httpService.addRes(result.data.values.name, result.data.values.id)).then().catch((err) => {
             if (err.status === 200) {
               this.display.display({code: 'La résidence a bien été créé', color: 'success'}).then();
             } else if (err.status === 201) {
@@ -150,7 +151,7 @@ export class HomePage {
     // on attend que l'utilisateur supprime l'alerte
     await alert.onDidDismiss().then(result => {
       if (result.role !== 'cancel') {
-        this.httpService.removeRes(infosSuppr[1]).toPromise().then().catch((err) => {
+        lastValueFrom(this.httpService.removeRes(infosSuppr[1])).then().catch((err) => {
           if (err.status === 200) {
             this.display.display({code: 'La résidence a bien été supprimé', color: 'success'}).then();
           } else if (err.status === 201) {

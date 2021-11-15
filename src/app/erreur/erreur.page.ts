@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Platform} from "@ionic/angular";
 import {Router} from "@angular/router";
 import {HttpService} from "../core/http.service";
+import {lastValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-erreur',
@@ -28,7 +29,7 @@ export class ErreurPage implements OnInit {
 
   // check si la connexion au serveur est de retour
   checkList() {
-    this.httpService.getJson('All').toPromise()
+    lastValueFrom(this.httpService.getJson('All'))
       .then(() => {
         this.router.navigate(['/']).then();
 

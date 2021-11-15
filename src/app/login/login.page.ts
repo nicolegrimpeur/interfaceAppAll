@@ -4,6 +4,7 @@ import {HttpService} from "../core/http.service";
 import {Display} from "../shared/class/display";
 import {Login} from "../shared/login";
 import {StorageService} from "../core/storage.service";
+import {lastValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +43,7 @@ export class LoginPage implements OnInit {
   submit() {
     Login.mdp = this.mdp;
     // on vérifie que le mot de passe entré est correct
-    this.httpService.checkMdpRp(this.mdp).toPromise().then()
+    lastValueFrom(this.httpService.checkMdpRp(this.mdp)).then()
       .catch(err => {
         // si status = 200, alors le mot de passe est correct
         if (err.status === 200) {
