@@ -48,7 +48,9 @@ export class Display {
     await alert.present();
   }
 
-  async actionSheet(infos: Array<any>, title: string, header: string, ) {
+  // template d'action sheet avec
+  // infos le tableau d'infos, title le titre, header l'header
+  async actionSheet(infos: Array<any>, title: string, header: string) {
     const tmp = [];
 
     // on parcours la liste de plannings et on rajoute un bouton pour chaque
