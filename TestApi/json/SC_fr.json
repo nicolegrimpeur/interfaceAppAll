@@ -1,0 +1,60 @@
+{
+  "langue": "fr",
+  "name": "Saint Claude",
+  "news": [
+    "💖 Nouveautés : Ajout de la résidence sur l'appli !",
+    "Pour afficher les informations recherchées, il vous suffit de cliquer sur le bouton correspondant ⬇"
+  ],
+  "nameLiens": "",
+  "liens": [],
+  "nameInfos": "Infos",
+  "infos": [
+    {
+      "id": "Référent principale",
+      "content": [
+        "&emsp; Le référent principal est :",
+        "MROCZYNSKI Eliott (chambre 102) / <a href='tel:07.86.36.40.56' title='Appeler Eliott' target='_blank'>07.86.36.40.56</a>"
+      ]
+    },
+    {
+      "id": "La salle commune",
+      "content": [
+        "En cours de création..."
+      ]
+    },
+    {
+      "id": "Laverie",
+      "content": [
+        "- 2 Lave-linges et sèche-linges : bien vider et bien nettoyer après utilisation, surtout les filtres.",
+        "- 2 Paniers de linge à disposition pour vider les machines si le propriétaire est en retard ou absent. (Il est interdit de mettre le linge des autres au sol !)",
+        "",
+        "Attention à bien fermer la lumière en partant !"
+      ]
+    },
+    {
+      "id": "Garage à vélos",
+      "content": [
+        "Garage couvert et securisé",
+        "",
+        "Demande de badge d'accès auprés du ALL ou du RP"
+      ]
+    },
+    {
+      "id": "Local poubelles",
+      "content": [
+        "Code d'accès : 1739",
+        "",
+        "Poubelle noire : déchet non recyclable",
+        "Poubelle rouge : déchet recyclable (cf. guide du locataire)"
+      ]
+    }
+  ],
+  "bullesLien": [],
+  "colInfo": [
+    {
+      "title": "ADRESSE",
+      "info1": "Résidence Saint Claude",
+      "info2": "<a title=\"Lien vers Google Maps\" href=\"https://goo.gl/maps/AaBkT68xUvSKEjYc7\" target=\"_blank\"> 10 bis rue Saint Jean Baptiste de la Salle, 59000, LILLE </a>"
+    }
+  ]
+}

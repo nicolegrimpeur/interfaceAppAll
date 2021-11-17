@@ -1,0 +1,98 @@
+{
+  "langue": "fr",
+  "name": "Saint-Omer",
+  "news": [
+    "💖 Nouveautés : Correction responsables",
+    "‼ Les informations sur les responsables seront mis à jour en septembre 2021",
+    "Pour afficher les informations recherchées, il vous suffit de cliquer sur le bouton correspondant ⬇"
+  ],
+  "nameLiens": "Liens",
+  "liens": [
+    {
+      "id": "Plannings",
+      "content": [
+        "Vous avez accès dans la laverie au premier étage à 2 machines à laver (numérotées machine 1 et 2), 2 sèches linges (numérotés sèche linge 1 et 2), ainsi qu'à 2 aspirateurs",
+        "",
+        "Pour accéder aux machines à laver, aux sèches linges, ainsi qu'à l'aspirateur, il vous faut préalablement vous inscrire sur les plannings disponibles en ligne <a href='https://nicob.ovh/plannings/' title='Lien vers le planning de la laverie' target='_blank'>ici (nicob.ovh/plannings)</a>",
+        "Une application android est aussi disponible depuis <a href='https://play.google.com/store/apps/details?id=plannings.ionic.all' title='Lien vers l'application' target='_blank'>ce lien</a>",
+        "",
+        "<span style='color: red; white-space: nowrap'> !!!</span> Merci de vider les bacs d'eau des sèches linges après votre utilisation !",
+        "Vous pouvez jeter l'eau dans le lavabo de la laverie (derrière les sèches linges)",
+        "",
+        "Si vous avez le moindre problème n'hésitez pas à envoyer un message à <a href='https://m.me/nicolegrimpeur' title='Lien vers le compte messenger de Nicolas' target='_blank'>Nicolas</a> qui est le responsable laverie !"
+      ]
+    }
+  ],
+  "nameInfos": "Infos",
+  "infos": [
+    {
+      "id": "Les responsables",
+      "content": [
+        "&emsp; Les responsables principaux sont cette année :",
+        "Chakht Hajar, T214, <a href='tel:07.69.90.76.14' title='Appeler Chakht' target='_blank'>07.69.90.76.14</a>, <a href='https://m.me/chakht.hajar' title='Lien vers le compte messenger de Chakht' target='_blank'>Messenger</a>",
+        "Margaux Sigler, T310, <a href='tel:07.82.93.24.78' title='Appeler Margaux' target='_blank'>07.82.93.24.78</a>, <a href='https://m.me/100011837252159' title='Lien vers le compte messenger de Margaux' target='_blank'>Messenger</a>",
+        "",
+        "&emsp; Les responsables par étage sont :",
+        "1er étage : Ayoub Sahli, O111, <a href='tel:07.63.23.72.03' title='Appeler Ayoub' target='_blank'>07.63.23.72.03</a>, <a href='https://m.me/100001527991894' title='Lien vers le compte messenger de Ayoub' target'_blank'>Messenger</a>",
+        "2ème étage : Anne-Charlotte Boismoreau, O217, <a href='tel:07.81.65.45.92' title='Appeler Anne-Charlotte' target='_blank'>07.81.65.45.92</a>, <a href='https://m.me/annecharlotte.boismoreau' title='Lien vers le compte messenger de Anne Charlotte' target'_blank'>Messenger</a>",
+        "3ème étage : Kenza Piesset, T301, <a href='tel:06.05.38.26.17' title='Appeler Kenza' target='_blank'>06.05.38.26.17</a>, <a href='https://m.me/kenza.piesset' title='Lien vers le compte messenger de Kenza' target='_blank'>Messenger</a>",
+        "4ème étage : Léa Druault, T419, <a href='tel:07.89.63.30.07' title='Appeler Léa' target='_blank'>07.89.63.30.07</a>, <a href='https://m.me/100053340221882' title='Lien vers le compte messenger de Léa' target='_blank'>Messenger</a>",
+        "5ème étage : Lucas Sadoul, O501, <a href='tel:06.51.91.72.49' title='Appeler Lucas' target='_blank'>06.51.91.72.49</a>, <a href='https://m.me/100037232001022' title='Lien vers le compte messenger de Lucas' target='_blank'>Messenger</a>",
+        "6ème étage : Lilou Klein, T612, <a href='tel:06.73.58.68.44' title='Appeler Lilou' target='_blank'>06.73.58.68.44</a>, <a href='https://m.me/lilou.klein.35' title='Lien vers le compte messenger de Lilou' target='_blank'>Messenger</a>",
+        "",
+        "&emsp; L'autre responsable est :",
+        "Responsable laverie et informatique : Nicolas Barrat, T404, <a href='tel:07.81.70.66.63' title='Appeler Nicolas' target='_blank'>07.81.70.66.63</a>, <a href='https://m.me/nicolegrimpeur' title='Lien vers le compte messenger de Nicolas' target='_blank'>Messenger</a>",
+        "",
+        "Le rôle des responsables d'étage est de faire la liaison avec les responsables principaux",
+        "Ils sont aussi la pour aider à organiser et préparer les événements dans la résidence",
+        "C'est eux qui vont signaler les problèmes à l'étage tels que les odeurs, le bruit à l'étage, une lampe en panne dans le couloir etc...",
+        "(pas la peine d'appeler le service technique du coup pour une lampe dans le couloir en panne)"
+      ]
+    },
+    {
+      "id": "Événements",
+      "content": [
+        "Tout d'abord, vous pouvez envoyer un message à Nicolas (<a href='sms:07.81.70.66.63' title='Envoyer un message à Nicolas' target='_blank'>07.81.70.66.63</a>) afin qu'il puisse vous rajouter sur la conversation du running de la résidence !",
+        "Vous trouverez dessus toutes les personnes avec qui vous pourriez aller courir (toujours mieux d'aller courir à plusieurs !)",
+        "",
+        "Vous pouvez retrouver les photos de l'inter résidence <a href='https://nicob.ovh:7443/index.php/s/DrNctfBLqBdNsA7' title='Lien vers les photos' target='_blank'><b>ici</b></a>"
+      ]
+    },
+    {
+      "id": "Le petit déjeuner",
+      "content": [
+        "La salle du petit déjeuner est situé au deuxième étage entre les bâtiments O et T et est ouverte entre 7H et 9H",
+        "",
+        "Vous trouverez dedans tout ce qu'il vous faut pour petit-déjeuner (boissons : thé, café, chocolat chaud, jus d'orange, jus de pomme; pain de mie frais; confiture, pate à tartiner, beurre; céréales) !",
+        "La vaisselle n'est pas fournis, pensez à ramener la votre !"
+      ]
+    },
+    {
+      "id": "La salle loisir",
+      "content": [
+        "La salle du 5ème contient une télé, un babyfoot, des fléchettes, des fauteuils et un panier de basket",
+        "Elle est situé au 5ème étage entre le bâtiment T et le O",
+        "",
+        "Si vous voulez y accéder, il vous suffit d'envoyer un message à <a href='https://m.me/https://m.me/chakht.hajar' title='Lien vers le compte messenger de Hajar' target='_blank'>Hajar</a> ou à <a href='https://m.me/100011837252159' title='Lien vers le compte messenger de Margaux' target='_blank'>Margaux</a> afin de récupérer les clés"
+      ]
+    }
+  ],
+  "idAffichage": {
+    "liens": "div_liensSTO",
+    "infos": "div_infosSTO"
+  },
+  "bullesLien": [
+    {
+      "title": "Lien vers le groupe facebook de la résidence",
+      "href": "https://www.facebook.com/groups/sto.21.22",
+      "logo": "logo-facebook"
+    }
+  ],
+  "colInfo": [
+    {
+      "title": "ADRESSE",
+      "info1": "Résidence Saint-Omer",
+      "info2": "<a title=\"Lien vers Google Maps\" href=\"https://goo.gl/maps/6LCwHevgpoTLBs6cA\" target=\"_blank\"> 13 Rue de Saint-Omer, 59800 Lille </a>"
+    }
+  ]
+}

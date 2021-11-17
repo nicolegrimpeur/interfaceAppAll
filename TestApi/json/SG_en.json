@@ -1,0 +1,59 @@
+{
+  "langue": "en",
+  "name": "Saint Claude",
+  "news": [
+    "💖 What's new: Adding the residence to the app !",
+    "To display the required informations, click on the corresponding button ⬇"
+  ],
+  "nameLiens": "",
+  "liens": [],
+  "nameInfos": "Information",
+  "infos": [
+    {
+      "id": "The referrer",
+      "content": [
+        "The main referrer is Veronica Brusotti"
+      ]
+    },
+    {
+      "id": "The breakfast",
+      "content": [
+        "The breakfast room is located in the kitchen",
+        "I remind you that juices, milk, cereals and other breakfast foods are available in the morning from Monday to Friday."
+      ]
+    },
+    {
+      "id": "Kitchen",
+      "content": [
+        "The kitchen is for everyone to use. If you drop an ingredient or get dirty, always try to clean it up.",
+        "",
+        "Pots and pans can be found in the kitchen, but it is advisable to bring your own, as their presence is not guaranteed.",
+        "It is <b>strongly recommended</b< to bring your own cooking utensils.",
+        "",
+        "In the kitchen, there is equipment such as: microwave, oven, toaster, blender, American type coffee machine."
+      ]
+    },
+    {
+      "id": "Washing machine and dryer",
+      "content": [
+        "Each week, you will find a table with the schedules to reserve the use of the washing machine and the dryer.",
+        "",
+        "It is very important to remember to leave the washing machine door open when you are finished using it, otherwise the moisture will form mold."
+      ]
+    },
+    {
+      "id": "Common room",
+      "content": [
+        "In the common room, you will find a television, a ping-pong table and a table soccer."
+      ]
+    }
+  ],
+  "bullesLien": [],
+  "colInfo": [
+    {
+      "title": "ADRESSE",
+      "info1": "Résidence Saint Claude",
+      "info2": "<a title=\"Link to Google Maps\" href=\"https://goo.gl/maps/3nVptUxWaxMadh2Y6\" target=\"_blank\"> 178 Rue Sadi Carnot, Haubordin, 59320 </a>"
+    }
+  ]
+}

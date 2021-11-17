@@ -1,0 +1,60 @@
+{
+  "langue": "en",
+  "name": "Saint Claude",
+  "news": [
+    "💖 What's new: Adding the residence to the app !",
+    "To display the required informations, click on the corresponding button ⬇"
+  ],
+  "nameLiens": "",
+  "liens": [],
+  "nameInfos": "Information",
+  "infos": [
+    {
+      "id": "The referrer",
+      "content": [
+        "&emsp; The main referrer is :",
+        "MROCZYNSKI Eliott (room 102) / <a href='tel:07.86.36.40.56' title='Call Eliott' target='_blank'>07.86.36.40.56</a>"
+      ]
+    },
+    {
+      "id": "The common room",
+      "content": [
+        "In process of creation..."
+      ]
+    },
+    {
+      "id": "Laundry",
+      "content": [
+        "- 2 Washing machines and dryers: Empty and clean properly after use, especially the filters.",
+        "- 2 laundry baskets available to empty the machines if the owner is late or absent. (It is forbidden to put other people's laundry on the floor!)",
+        "",
+        "Be careful to turn off the light when leaving!"
+      ]
+    },
+    {
+      "id": "Bicycle garage",
+      "content": [
+        "Covered and secured garage",
+        "",
+        "Request an access badge from the ALL or the RP"
+      ]
+    },
+    {
+      "id": "Garbage room",
+      "content": [
+        "Access code : 1739",
+        "",
+        "Black garbage can: non-recyclable waste",
+        "Red garbage can: recyclable waste (see tenant's guide)"
+      ]
+    }
+  ],
+  "bullesLien": [],
+  "colInfo": [
+    {
+      "title": "ADRESSE",
+      "info1": "Résidence Saint Claude",
+      "info2": "<a title=\"Link to Google Maps\" href=\"https://goo.gl/maps/AaBkT68xUvSKEjYc7\" target=\"_blank\"> 10 bis rue Saint Jean Baptiste de la Salle, 59000, LILLE </a>"
+    }
+  ]
+}

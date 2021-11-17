@@ -1,0 +1,183 @@
+{
+  "langue": "fr",
+  "news": [
+    "💖 Nouveautés : Ajout d'informations sur Ucopia",
+    "Pour afficher les informations recherchées, il vous suffit de cliquer sur le bouton correspondant ⬇"
+  ],
+  "nameLiens": "Liens",
+  "liens": [
+    {
+      "id": "Ucopia",
+      "content": [
+        "Pour vous connecter à internet, il vous faut passer par le portail Ucopia",
+        "Il faut pour cela vous rendre sur le site : <a href='https://ucopia.all-lacatho.fr/105/portal/#' title='Accéder au portail Ucopia' target='_blank'>ucopia.all-lacatho.fr</a>",
+        "",
+        "Des documents concernant la première connexion, les règles avec Ucopia et plus d'informations sont disponibles depuis <a href='https://drive.google.com/drive/folders/1qsSKYX1H_Sr0MzJDC-6TDg6YmQnAGx8c?usp=sharing' title='Accéder aux informations Ucopia' target='_blank'>ce drive</a>",
+        "",
+        "N'hésitez pas à envoyer un message à vos RPs si vous avez le moindre problème ! "
+      ]
+    },
+    {
+      "id": "Compte logement",
+      "content": [
+        "Voici le lien vers le site sur lequel vous pourrez trouver votre compte logement : <a href='https://logement.all-lacatho.fr/login' title='Lien vers votre compte logement' target='_blank'> https://logement.all-lacatho.fr/login</a>",
+        "",
+        "Vos identifiants vous ont normalement été envoyé par mail, sinon faites 'Identifiants oubliés' ou envoyer un mail au service logement"
+      ]
+    }
+  ],
+  "nameInfos": "Infos",
+  "infos": [
+    {
+      "id": "Règles en résidences",
+      "content": [
+        "Merci de respecter le calme dans les couloirs et les chambres !",
+        "L'alcool et les substances illicites sont interdites. Tout manquement peut entrainer une expulsion immédiate",
+        "Il est de plus interdit de fumer dans les couloirs ainsi que dans les chambres. Vous trouverez en fonction des résidences des cendriers à votre disposition. S'il n'y en a pas encore, vous pouvez en faire la demande à vos responsables"
+      ]
+    },
+    {
+      "id": "Evenements",
+      "content": [
+        "Le premier événement inter-résidence est maintenant terminé mais d'autres arriveront bientôt !"
+      ]
+    },
+    {
+      "id": "Déchets",
+      "content": [
+        "Merci de trier vos déchets et d'utiliser la poubelle jaune pour les déchets recyclables !",
+        "Les autres déchets vont dans les poubelles noirs, pas à côté ni dans les couloirs !",
+        "",
+        "<span style='color: red'> !!! </span> N'oubliez pas que vos poubelles vont DANS les poubelles, pas au dessus !"
+      ]
+    },
+    {
+      "id": "Colis",
+      "content": [
+        "Lorsque l'on vous demande l'adresse où envoyer vos colis, il faut mettre le 47 Boulevard Vauban et non l'adresse de la résidence",
+        "",
+        "Une fois votre colis reçu, le ALL vous enverra un mail sous 24H vous disant que votre colis est arrivé",
+        "Vous pourrez alors vous rendre aux bureaux du ALL au 1er étage du 47 Boulevard Vauban afin d'aller récupérer votre colis ! "
+      ]
+    },
+    {
+      "id": "Le Restaurant Universitaire",
+      "content": [
+        "Le ALL vous propose plusieurs restaurants universitaires (quand les restaurants sont ouverts, cf après cette partie) :",
+        "&emsp; - Au sous-sol du 125 rue Meurein :",
+        "&emsp; &emsp; • Le Globe-trotter : cuisine du monde",
+        "&emsp; &emsp; • Le Tradi : pour manger comme à la maison",
+        "&emsp; &emsp; • Le Green : pour manger sain ou végétarien",
+        "&emsp; &emsp; • La Sandwicherie : sandwich et salades sur place et à emporter",
+        "&emsp; - Au 1<sup>er</sup> étage du 47 boulevard Vauban :",
+        "&emsp; &emsp; • Le Food Corner : fast food",
+        "&emsp; - A l'Hôtel Académique au 60 boulevard Vauban :",
+        "&emsp; &emsp; • La Sandwicherie du 60 : sandwich et salades sur place et à emporter",
+        "",
+        "Tous les restaurants universitaires sont à 1€ pour les étudiants boursiers, et 3€30 sinon",
+        "",
+        "Tous les paiements se font via la carte du ALL (la même qui vous sert de badge pour rentrer dans la résidence)",
+        "Pour vérifier que votre paiement est bien passé, ou pour recharger vos carte en ligne, tout se fait sur ce site : <a href='https://resto-aeu.moneweb.fr' title='Lien vers le site' target='_blank'>https://resto-aeu.moneweb.fr</a>",
+        "L'identifiant correspond à votre numéro de carte, tandis que le mot de passe vous a été donné lorsque l'on vous a donné votre carte",
+        "N'hésitez pas à faire mot de passe oublié ou <a href='mailto:contact@all-lacatho.fr' title='Envoyer un mail au service logement' target='_blank'>à envoyer un mail au ALL</a> si vous l'avez perdu",
+        "",
+        "Vous avez la possibilité de faire du click and collect, à aller chercher à la sandwitcherie du 125 rue Meurein en commandant sur <a href='https://www.all-lacatho.fr/click-and-collect/fr/64-click-collect' title='Lien vers le click and collect du RU' target='_blank'>ce site</a>",
+        "Les paiements se font directement la bas si vous souhaitez payer avec votre carte All, mais si vous préférez payer par CB vous pouvez le faire directement sur le site",
+        "",
+        "N'hésitez pas à envoyer un message à vos RPs pour toutes questions supplémentaires !"
+      ]
+    },
+    {
+      "id": "Lit d'appoint",
+      "content": [
+        "Vous pouvez demander au All un lit d'appoint si vous devez loger quelqu'un chez vous",
+        "",
+        "Le lit est un lit pliant d'appoint fourni avec le linge de lit.",
+        "Le tarif est de 5€ par nuit, mais si vous prenez pour la/les soirées du vendredi et/ou samedi et/ou dimanche, le 'forfait weekend' sera appliqué à 15€",
+        "",
+        "Vous pouvez en faire la demande directement sur <a href='https://logement.all-lacatho.fr/login' title='Lien vers votre compte logement' target='_blank'>votre compte logement</a> ou en envoyant un mail au service logement",
+        "Une fois la confirmation reçu, le service technique vous le déposera dans votre chambre pour le jour demandé"
+      ]
+    },
+    {
+      "id": "Covid",
+      "content": [
+        "<span style='color: red'> !!! </span> Nous vous rappelons que le masque est obligatoire dans la résidence sous peine de sanction ! (pouvant aller de l'avertissement à l'exclusion)",
+        "",
+        "N'oubliez pas de vous laver les mains régulièrement ! Si vous ne pouvez pas, utilisez du gel hydroalcoolique",
+        "",
+        "Si vous possédez un ou plusieurs symptômes, merci de prévenir au plus vite le service logement par <a href='tel:03.20.15.97.78' title='Appeler le service logement' target='_blank'>téléphone</a> ou par <a href='mailto:contact@all-lacatho.fr' title='Envoyer un mail au service logement' target='_blank'>mail</a> !",
+        "",
+        "Pour plus d'informations, vous pouvez vous référer à ce document : <a href='./assets/doc/consignes_fr.pdf' title='Document consignes sanitaires FR' target='_blank'>Consignes sanitaire FR</a>, <a href='./assets/doc/consignes_en.pdf' title='Document consignes sanitaires EN' target='_blank'>Consignes sanitaire EN</a> "
+      ]
+    },
+    {
+      "id": "Sport",
+      "content": [
+        "Le All sport propose différents espaces à tous les étudiants de l'Université Catholique de Lille : une salle de fitness ouverte de septembre à juillet, un gymnase et un complexe sportif accessible toute l'année aux associations sportives et aux écoles",
+        "",
+        "La salle de fitness se situe au 125 rue Meurein et est ouverte :",
+        "&emsp; - du Lundi au Jeudi de 7H30 à 21H30",
+        "&emsp; - le Vendredi de 7H30 à 19H30",
+        "&emsp; - le Samedi de 10H30 à 13H30",
+        "Fermé l'été de mi-juillet à fin août",
+        "Vous pouvez y retrouver tous les équipements d'une salle de sport",
+        "",
+        "Vous avez de plus accès dans la salle Henninot au sous sol à de nombreux cours du lundi au samedi, tel que de la Zumba, Step, Abdos-Fessiers, et de la Boxe par exemple",
+        "Vous pouvez retrouver le planning des cours <a href='https://www.all-lacatho.fr/fr/content/101-sport' title='Lien vers le site du All' target='_blank'><b>ici</b></a> ",
+        "",
+        "Vous pouvez retrouver les tarifs ainsi que les informations pour s'inscrire <a href='all-lacatho.fr/fr/inscription-sport' title='Lien vers le site du All' target='_blank'><b>ici</b></a>",
+        "",
+        "!!! Attention : Pass Sanitaire obligatoire à l'entrée de la salle"
+      ]
+    }
+  ],
+  "idAffichage": {
+    "liens": "div_liensAll",
+    "infos": "div_infosAll"
+  },
+  "bullesLien": [
+    {
+      "title": "Lien vers le site du ALL",
+      "href": "https://www.all-lacatho.fr/fr",
+      "logo": "link"
+    },
+    {
+      "title": "Lien vers le compte facebook du ALL",
+      "href": "https://www.facebook.com/Alldelacatho",
+      "logo": "logo-facebook"
+    },
+    {
+      "title": "Lien vers le compte instagram du ALL",
+      "href": "https://www.instagram.com/alldelacatho",
+      "logo": "logo-instagram"
+    },
+    {
+      "title": "Lien vers le compte linkedin du ALL",
+      "href": "https://www.linkedin.com/company/all-lacatho",
+      "logo": "logo-linkedin"
+    }
+  ],
+  "colInfo": [
+    {
+      "title": "ADRESSE",
+      "info1": "All",
+      "info2": "<a title=\"Lien vers Google Maps\" href=\"https://goo.gl/maps/1Mhk8jH7hM3v3bnN6\" target=\"_blank\"> 47 Boulevard Vauban, 59800 Lille </a>"
+    },
+    {
+      "title": "SERVICE LOGEMENT",
+      "info1": "<a title=\"Appeler le service logement\" href=\"tel:03.20.15.97.78\" target=\"_blank\">03.20.15.97.78</a>",
+      "info2": "<a title=\"Envoyer un mail au service logement\" href=\"mailto:contact@all-lacatho.fr\" target=\"_blank\">contact@all-lacatho.fr</a>"
+    },
+    {
+      "title": "SERVICE TECHNIQUE",
+      "info1": "<a title=\"Appeler le service technique\" href=\"tel:03.20.15.97.77\" target=\"_blank\">03.20.15.97.77</a>",
+      "info2": "<a title=\"Envoyer un mail au service technique\" href=\"mailto:servicetechnique@all-lacatho.fr\" target=\"_blank\">servicetechnique@all-lacatho.fr</a>"
+    },
+    {
+      "title": "HORAIRES",
+      "info1": "Lundi - Vendredi : 8H30 - 18H",
+      "info2": "Samedi - Dimanche : Fermé"
+    }
+  ]
+}
