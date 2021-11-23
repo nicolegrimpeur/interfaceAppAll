@@ -13,11 +13,13 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Choisis ta résidence</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card *ngIf="isAll">
+    <ion-card-header>
+      <ion-card-title>
+        Connecté en tant que All
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
 
   <!-- bouton du All -->
   <ion-button expand="block" color="medium" (click)="clickEvent('All')">All</ion-button>

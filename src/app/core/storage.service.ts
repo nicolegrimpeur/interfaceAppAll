@@ -11,15 +11,23 @@ export class StorageService {
   }
 
   async setLogin() {
-    console.log('set', Login.mdp);
     await Storage.set({
       key: 'mdp',
       value: Login.mdp,
+    });
+    await Storage.set({
+      key: 'isAll',
+      value: String(Login.isAll),
     });
   }
 
   async getLogin() {
     const {value} = await Storage.get({key: 'mdp'});
     return value;
+  }
+
+  async getIsAll() {
+    const {value} = await Storage.get({key: 'isAll'});
+    return Boolean(value);
   }
 }

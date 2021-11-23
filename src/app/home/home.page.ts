@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {Langue} from '../shared/langue';
 import {ActionSheetController, AlertController, Platform} from '@ionic/angular';
 import {HttpService} from '../core/http.service';
 import {ListeModel} from '../shared/models/liste-model';
@@ -18,6 +17,7 @@ import {lastValueFrom} from 'rxjs';
 export class HomePage {
   public liste = new ListeModel(); // stocke la liste des résidences
   public mobile = this.platform.platforms().findIndex(res => res === 'mobile') !== -1; // true si l'on est sur téléphone, false sinon
+  public isAll = Login.isAll;
 
   constructor(
     private alertController: AlertController,

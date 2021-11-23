@@ -58,6 +58,19 @@ export class ModificationsPage implements OnInit {
   // récupère le json de la résidence et le stocke
   getJson() {
     if (this.id !== '') {
+      lastValueFrom(this.httpService.getJsonAVerifier(this.id))
+        .then(result => {
+          this.infos = result;
+        })
+        .catch(err => {
+          this.router.navigate(['/erreur']).then();
+        });
+    }
+    this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
+  }
+
+  annulerToutesLesModifs() {
+    if (this.id !== '') {
       lastValueFrom(this.httpService.getJson(this.id))
         .then(result => {
           this.infos = result;

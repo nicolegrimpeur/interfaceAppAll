@@ -19,6 +19,12 @@ export class HttpService {
 
   // récupère le json en ligne
   getJson(nameText: string): Observable<InfoResidenceModel> {
+    const url = this.baseUrl + nameText + '_' + Langue.value;
+    return this.http.get<InfoResidenceModel>(url);
+  }
+
+  // récupère le json en ligne
+  getJsonAVerifier(nameText: string): Observable<InfoResidenceModel> {
     const url = this.baseUrl + 'aVerifier/' + nameText + '_' + Langue.value;
     return this.http.get<InfoResidenceModel>(url);
   }

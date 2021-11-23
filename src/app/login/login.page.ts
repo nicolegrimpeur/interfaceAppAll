@@ -16,6 +16,7 @@ export class LoginPage implements OnInit {
   @ViewChild('iconMdp') iconMdp;
 
   public mdp = '';
+  public mdpAll = '';
 
   constructor(
     private router: Router,
@@ -28,34 +29,46 @@ export class LoginPage implements OnInit {
   }
 
   // permet d'afficher le mot de passe
-  toggleMdp() {
-    if (this.iconMdp.name === 'eye-outline') {
-      this.iconMdp.name = 'eye-off-outline';
-      this.inputMdp.type = 'password';
+  toggleMdp(iconMdp, inputMdp) {
+    if (iconMdp.name === 'eye-outline') {
+      iconMdp.name = 'eye-off-outline';
+      inputMdp.type = 'password';
     }
     else {
-      this.iconMdp.name = 'eye-outline';
-      this.inputMdp.type = 'text';
+      iconMdp.name = 'eye-outline';
+      inputMdp.type = 'text';
     }
   }
 
   // événement au click du submit
   submit() {
     Login.mdp = this.mdp;
+    Login.isAll = false;
     // on vérifie que le mot de passe entré est correct
     lastValueFrom(this.httpService.checkMdpRp(this.mdp)).then()
-      .catch(err => {
-        // si status = 200, alors le mot de passe est correct
-        if (err.status === 200) {
-          this.display.display({code: 'Mot de passe correct', color: 'success'}).then();
-          this.storageService.setLogin().then(() => {
-            this.router.navigate(['/']).then();
-          });
-        } else if (err.status === 201) {
-          this.display.display('Mot de passe incorrect').then();
-        } else {
-          this.router.navigate(['/erreur']).then();
-        }
+      .catch(err => this.catchSubmit(err));
+  }
+
+  // événement au click du submitAll
+  submitAll() {
+    Login.mdp = this.mdpAll;
+    Login.isAll = true;
+    // on vérifie que le mot de passe entré est correct
+    lastValueFrom(this.httpService.checkMdpAll(this.mdpAll)).then()
+      .catch(err => this.catchSubmit(err));
+  }
+
+  catchSubmit(res) {
+    // si status = 200, alors le mot de passe est correct
+    if (res.status === 200) {
+      this.display.display({code: 'Mot de passe correct', color: 'success'}).then();
+      this.storageService.setLogin().then(() => {
+        this.router.navigate(['/']).then();
       });
+    } else if (res.status === 201) {
+      this.display.display('Mot de passe incorrect').then();
+    } else {
+      this.router.navigate(['/erreur']).then();
+    }
   }
 }
