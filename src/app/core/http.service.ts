@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {InfoResidenceModel} from '../shared/models/info-residence-model';
 import {Langue} from '../shared/langue';
 import {ListeModel} from '../shared/models/liste-model';
+import {Login} from "../shared/login";
 
 
 @Injectable({
@@ -49,7 +50,8 @@ export class HttpService {
 
   // upload les modifications sur le serveur
   uploadModifs(data, id): Observable<any> {
-    const url = this.baseUrl + 'upload/' + id + '_' + Langue.value + '/true';
+    // upload/residence + langue/est ce que c'est à vérifier ou pas
+    const url = this.baseUrl + 'upload/' + id + '_' + Langue.value + '/' + String(!Login.isAll);
     return this.http.post(url, data, {headers: {'Content-Type': 'application/json'}});
   }
 
