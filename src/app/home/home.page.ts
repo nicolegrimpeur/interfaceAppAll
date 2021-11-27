@@ -31,6 +31,9 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    // init de la vaiable qui dit si l'on est connecté en tant que all ou pas
+    this.isAll = Login.isAll;
+
     // récupère la liste
     lastValueFrom(this.httpService.getListe())
       .then(result => {
@@ -56,11 +59,6 @@ export class HomePage {
           name: 'name',
           type: 'text',
           placeholder: 'Nom de la résidence (exemple Saint-Omer)'
-        },
-        {
-          name: 'id',
-          type: 'text',
-          placeholder: 'Identifiant de la résidence (exemple STO)'
         }
       ],
       buttons: [{
@@ -79,7 +77,7 @@ export class HomePage {
     await alert.onDidDismiss().then((result) => {
       if (result.role !== 'cancel') {
         if (result.data.values.name !== '' && result.data.values.id !== '') {
-          lastValueFrom(this.httpService.addRes(result.data.values.name, result.data.values.id)).then().catch((err) => {
+          lastValueFrom(this.httpService.addRes(result.data.values.name, this.findId(result.data.values.name))).then().catch((err) => {
             if (err.status === 200) {
               this.display.display({code: 'La résidence a bien été créé', color: 'success'}).then();
             } else if (err.status === 201) {
@@ -94,6 +92,11 @@ export class HomePage {
         }
       }
     });
+  }
+
+  // remplace tous les caractères spéciaux pour créé un id au nom de la résidence
+  findId(name) {
+    return name.replace(/[^a-zA-Z]/gi, '').toLowerCase();
   }
 
   // permet de supprimer une résidence
@@ -167,6 +170,7 @@ export class HomePage {
 
   verrouillage() {
     Login.mdp = '';
+    Login.isAll = false;
     this.storageService.setLogin().then();
     this.route.navigate(['/login']).then(() => {
       this.display.display({code: 'Verrouillage réussi', color: 'success'}).then();
