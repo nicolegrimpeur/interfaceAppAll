@@ -69,15 +69,55 @@ export class ModificationsPage implements OnInit {
     this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
   }
 
-  annulerToutesLesModifs() {
+  annuler() {
     if (this.id !== '') {
-      lastValueFrom(this.httpService.getJson(this.id))
-        .then(result => {
-          this.infos = result;
-        })
-        .catch(err => {
-          this.router.navigate(['/erreur']).then();
-        });
+      this.display.alertPersonnalise(
+        Langue.value === 'fr' ?
+          'Voulez-vous annuler toutes les modifications depuis le dernier ajout sur le site nicob.ovh/all, ou juste les dernières modifications ?' :
+          'Do you want to undo all the changes since the last addition to the nicob.ovh/all site, or just the latest changes?',
+        '',
+        [
+          {
+            text: Langue.value === 'fr' ? 'Toutes' : 'All changes',
+            role: 'all'
+          },
+          {
+            text: Langue.value === 'fr' ? 'Dernières' : 'Latest',
+            role: 'last'
+          },
+          {
+            text: Langue.value === 'fr' ? 'Annuler' : 'Cancel',
+            role: 'cancel'
+          }
+        ]).then(result => {
+        console.log(result);
+        if (result !== 'cancel' && result !== 'backdrop') {
+          if (result === 'all') {
+            lastValueFrom(this.httpService.getJson(this.id))
+              .then(result => {
+                this.infos = result;
+              })
+              .catch(err => {
+                console.log(err)
+                lastValueFrom(this.httpService.getJsonAVerifier(this.id))
+                  .then(result => {
+                    this.infos = result;
+                  })
+                  .catch(() => {
+                    this.router.navigate(['/erreur']).then();
+                  });
+              });
+          } else if (result === 'latest') {
+            lastValueFrom(this.httpService.getJsonAVerifier(this.id))
+              .then(result => {
+                this.infos = result;
+              })
+              .catch(err => {
+                this.router.navigate(['/erreur']).then();
+              });
+          }
+        }
+      });
     }
     this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
   }
@@ -92,18 +132,11 @@ export class ModificationsPage implements OnInit {
 
   // affiche l'alerte
   async addAlert() {
-    let alert;
-    alert = await this.alertController.create({
-      subHeader: Langue.value === 'fr' ? 'Changement de la langue en Français' : 'Langue switch to English',
-      message: Langue.value === 'fr' ? 'Vous pouvez maintenant modifier la page en Français' : 'You can now edit the page in English',
-      buttons: ['OK']
-    });
-
-    // on affiche l'alerte
-    await alert.present();
-
-    // on attend que l'utilisateur supprime l'alerte
-    await alert.onDidDismiss();
+    await this.display.alertPersonnalise(
+      Langue.value === 'fr' ? 'Changement de la langue en Français' : 'Langue switch to English',
+      Langue.value === 'fr' ? 'Vous pouvez maintenant modifier la page en Français' : 'You can now edit the page in English',
+      ['OK']
+    );
 
     // on change la langue de la page
     this.langue = Langue.value;

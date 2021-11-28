@@ -28,6 +28,6 @@ export class StorageService {
 
   async getIsAll() {
     const {value} = await Storage.get({key: 'isAll'});
-    return Boolean(value);
+    return value === 'true';
   }
 }

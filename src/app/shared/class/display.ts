@@ -37,7 +37,7 @@ export class Display {
     await toast.present();
   }
 
-  // création d'une alerte
+  // création d'une alerte d'information
   async alert(info: string) {
     const alert = await this.alertController.create({
       header: 'Information',
@@ -46,6 +46,19 @@ export class Display {
     });
 
     await alert.present();
+  }
+
+  // alert mais avec des boutons personnalisés
+  async alertPersonnalise(header: string, message: string, buttons: Array<any>) {
+    const alert = await this.alertController.create({
+      cssClass: 'alert',
+      header: header,
+      message: message,
+      buttons: buttons
+    });
+
+    await alert.present();
+    return await alert.onDidDismiss().then(result => result.role);
   }
 
   // template d'action sheet avec

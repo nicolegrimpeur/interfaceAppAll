@@ -7,7 +7,7 @@
 
     <ion-title>{{infos.name !== undefined ? 'Résidence ' + infos.name : 'All'}}</ion-title>
 
-    <ion-button *ngIf="!mobile" slot="end" style="margin-right: 2vw" color="medium" (click)="ionViewWillEnter()">
+    <ion-button *ngIf="!mobile" slot="end" style="margin-right: 2vw" color="medium" (click)="annuler()">
       {{langue === 'fr' ? 'Annuler' : 'Cancel'}}
     </ion-button>
     <ion-button *ngIf="!mobile" slot="end" style="margin-right: 2vw" (click)="enregistrer()">
@@ -59,7 +59,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-button expand="block" color="medium" (click)="ionViewWillEnter()">
+            <ion-button expand="block" color="medium" (click)="annuler()">
               {{langue === 'fr' ? 'Annuler' : 'Cancel'}}
             </ion-button>
           </ion-col>

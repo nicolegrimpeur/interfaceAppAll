@@ -24,7 +24,6 @@ export class AppComponent {
       .then(async result => {
         if (result === null) {
           this.storageService.setLogin().then();
-        // } else if {
         } else if (result !== '') {
           Login.mdp = result;
           await this.storageService.getIsAll().then(res => {
@@ -48,6 +47,7 @@ export class AppComponent {
       this.router.navigate(['/login']).then();
     } else if (err.status == 200) {
       Login.isAll = isAll;
+      this.router.navigate(['/home']).then();
     } else {
       this.router.navigate(['/erreur']).then();
     }
