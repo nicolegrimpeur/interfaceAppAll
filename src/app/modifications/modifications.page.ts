@@ -23,6 +23,7 @@ export class ModificationsPage implements OnInit {
   public currentModif = {id: '', infosOrLiens: '', idButton: ''}; // stocke les informations du click sur un bouton de la card informations
   public mobile = this.platform.platforms().findIndex(res => res === 'mobile') !== -1; // true si l'on est sur téléphone, false sinon
   public langue: string; // stocke la lanque courante
+  public imageExist: boolean; // true si une image a déjà été initialisé pour cette résidence
 
   constructor(
     private httpService: HttpService,
@@ -53,6 +54,7 @@ export class ModificationsPage implements OnInit {
     }
 
     this.getJson();
+    this.downloadImg();
   }
 
   // récupère le json de la résidence et le stocke
@@ -89,35 +91,35 @@ export class ModificationsPage implements OnInit {
             text: Langue.value === 'fr' ? 'Annuler' : 'Cancel',
             role: 'cancel'
           }
-        ]).then(result => {
-        console.log(result);
-        if (result !== 'cancel' && result !== 'backdrop') {
-          if (result === 'all') {
-            lastValueFrom(this.httpService.getJson(this.id))
-              .then(result => {
-                this.infos = result;
-              })
-              .catch(err => {
-                console.log(err)
-                lastValueFrom(this.httpService.getJsonAVerifier(this.id))
-                  .then(result => {
-                    this.infos = result;
-                  })
-                  .catch(() => {
-                    this.router.navigate(['/erreur']).then();
-                  });
-              });
-          } else if (result === 'latest') {
-            lastValueFrom(this.httpService.getJsonAVerifier(this.id))
-              .then(result => {
-                this.infos = result;
-              })
-              .catch(err => {
-                this.router.navigate(['/erreur']).then();
-              });
+        ])
+        .then(result => {
+          if (result !== 'cancel' && result !== 'backdrop') {
+            if (result === 'all') {
+              lastValueFrom(this.httpService.getJson(this.id))
+                .then(result => {
+                  this.infos = result;
+                })
+                .catch(err => {
+                  console.log(err)
+                  lastValueFrom(this.httpService.getJsonAVerifier(this.id))
+                    .then(result => {
+                      this.infos = result;
+                    })
+                    .catch(() => {
+                      this.router.navigate(['/erreur']).then();
+                    });
+                });
+            } else if (result === 'latest') {
+              lastValueFrom(this.httpService.getJsonAVerifier(this.id))
+                .then(result => {
+                  this.infos = result;
+                })
+                .catch(err => {
+                  this.router.navigate(['/erreur']).then();
+                });
+            }
           }
-        }
-      });
+        });
     }
     this.currentModif = {id: '', infosOrLiens: '', idButton: ''};
   }
@@ -173,7 +175,7 @@ export class ModificationsPage implements OnInit {
 
     // on attend que l'utilisateur supprime l'alerte
     await alert.onDidDismiss().then((result) => {
-      if (result.role !== 'cancel') {
+      if (result.role !== 'cancel' && result.role !== 'backdrop') {
         // on ajoute au presse papier la balise de lien
         Clipboard.write({
           string: "<a href='" + result.data.values.link + "' title='" + result.data.values.description + "' target='_blank'>" + result.data.values.description + "</a>"
@@ -215,6 +217,8 @@ export class ModificationsPage implements OnInit {
           }).then();
           this.labelImage.el.textContent =
             this.langue === 'fr' ? 'L\'image a bien été mise en ligne' : 'The image has been uploaded';
+
+          this.imageExist = true;
         })
         .catch(err => {
           this.display.display((this.langue === 'fr' ? 'Une erreur a eu lieu' : 'An error has occurred') + err).then();
@@ -242,6 +246,23 @@ export class ModificationsPage implements OnInit {
     }
 
     return new Blob(byteArrays, {type: contentType});
+  }
+
+  // permet de télécharger l'image de la résidence
+  downloadImg() {
+    lastValueFrom(this.httpService.downloadImg(this.id))
+      .then(res => {
+        // ouvre une nouvelle page en affichant l'image
+        if (this.imageExist !== undefined) window.open(window.URL.createObjectURL(res));
+
+        this.imageExist = true;
+      })
+      .catch(err => {
+        if (err.status === 500) {
+          if (this.imageExist !== undefined) this.display.alert('L\'image n\'a pas été trouvé').then();
+          this.imageExist = false;
+        } else this.display.alert('Une erreur a eu lieu, merci de réessayer plus tard').then();
+      });
   }
 
   // ajoute une ligne pour les news

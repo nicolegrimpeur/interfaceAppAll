@@ -11,8 +11,8 @@ import {Login} from "../shared/login";
   providedIn: 'root'
 })
 export class HttpService {
-  // private base = 'https://nicob.ovh/';
-  private base = 'http://localhost:1080/';
+  private base = 'https://nicob.ovh/';
+  // private base = 'http://localhost:1080/';
   private baseUrl = this.base + 'apiJson/';
 
   constructor(private readonly http: HttpClient) {
@@ -72,5 +72,10 @@ export class HttpService {
   checkMdpAll(mdp): Observable<any> {
     const url = this.base + 'mdpRp/all/' + mdp;
     return this.http.get<any>(url);
+  }
+
+  downloadImg(id): Observable<any> {
+    const url = this.baseUrl + 'get/residence' + id;
+    return this.http.get<any>(url, {responseType: 'blob' as 'json'});
   }
 }

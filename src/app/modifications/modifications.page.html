@@ -102,13 +102,29 @@
   </ion-item>
 
   <ion-card *ngIf="ionSelect.value === 'image' || ionSelect.value === ''">
-    <ion-card-content>
-      <ion-button color="medium" (click)="accessGallery()" slot="start">
-        <ion-icon slot="start" name="image-outline"></ion-icon>
-        {{langue === 'fr' ? 'Ajouter une image' : 'Add an image'}}
-      </ion-button>
-      <ion-label #labelImage style="margin-left: 2vmin"></ion-label>
-    </ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card-content>
+            <ion-button color="medium" (click)="accessGallery()" slot="start">
+              <ion-icon slot="start" name="image-outline"></ion-icon>
+              {{langue === 'fr' ? 'Ajouter une image' : 'Add an image'}}
+            </ion-button>
+            <ion-label #labelImage style="margin-left: 2vmin"></ion-label>
+          </ion-card-content>
+        </ion-col>
+
+        <ion-col *ngIf="imageExist">
+          <ion-card-content>
+            <ion-button color="medium" (click)="downloadImg()" slot="start">
+              <ion-icon slot="start" name="cloud-download-outline"></ion-icon>
+              {{langue === 'fr' ? 'Télécharger l\'image' : 'Download image'}}
+            </ion-button>
+            <ion-label style="margin-left: 2vmin"></ion-label>
+          </ion-card-content>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-card>
 
 
