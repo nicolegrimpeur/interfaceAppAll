@@ -23,7 +23,8 @@ export class LoginPage implements OnInit {
     private httpService: HttpService,
     private display: Display,
     private storageService: StorageService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }
@@ -33,8 +34,7 @@ export class LoginPage implements OnInit {
     if (iconMdp.name === 'eye-outline') {
       iconMdp.name = 'eye-off-outline';
       inputMdp.type = 'password';
-    }
-    else {
+    } else {
       iconMdp.name = 'eye-outline';
       inputMdp.type = 'text';
     }
@@ -45,7 +45,8 @@ export class LoginPage implements OnInit {
     Login.mdp = this.mdp;
     Login.isAll = false;
     // on vérifie que le mot de passe entré est correct
-    lastValueFrom(this.httpService.checkMdpRp(this.mdp)).then()
+    lastValueFrom(this.httpService.checkMdpRp(this.mdp))
+      .then(() => this.thenSubmit())
       .catch(err => this.catchSubmit(err));
   }
 
@@ -54,19 +55,21 @@ export class LoginPage implements OnInit {
     Login.mdp = this.mdpAll;
     Login.isAll = true;
     // on vérifie que le mot de passe entré est correct
-    lastValueFrom(this.httpService.checkMdpAll(this.mdpAll)).then()
+    lastValueFrom(this.httpService.checkMdpAll(this.mdpAll))
+      .then(() => this.thenSubmit())
       .catch(err => this.catchSubmit(err));
   }
 
-  catchSubmit(res) {
-    // si status = 200, alors le mot de passe est correct
-    if (res.status === 200) {
-      this.display.display({code: 'Mot de passe correct', color: 'success'}).then();
-      this.storageService.setLogin().then(() => {
-        this.router.navigate(['/']).then();
-      });
-    } else if (res.status === 201) {
-      this.display.display('Mot de passe incorrect').then();
+  thenSubmit() {
+    this.display.display({code: 'Mot de passe correct', color: 'success'}).then();
+    this.storageService.setLogin().then(() => {
+      this.router.navigate(['/']).then();
+    });
+  }
+
+  catchSubmit(err) {
+    if (err.status === 403) {
+      this.display.display(err.error.message).then();
     } else {
       this.router.navigate(['/erreur']).then();
     }

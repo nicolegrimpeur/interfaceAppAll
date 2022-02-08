@@ -28,11 +28,13 @@ export class AppComponent {
           Login.mdp = result;
           await this.storageService.getIsAll().then(res => {
             if (res) {
-              lastValueFrom(this.httpService.checkMdpAll(result)).then()
-                .catch(err => this.catchCheckMdp(err, true));
+              lastValueFrom(this.httpService.checkMdpAll(result))
+                .then(() => this.thenCheckMdp(true))
+                .catch(err => this.catchCheckMdp(err));
             } else {
-              lastValueFrom(this.httpService.checkMdpRp(result)).then()
-                .catch(err => this.catchCheckMdp(err, false));
+              lastValueFrom(this.httpService.checkMdpRp(result))
+                .then(() => this.thenCheckMdp(false))
+                .catch(err => this.catchCheckMdp(err));
             }
           })
         } else {
@@ -41,13 +43,14 @@ export class AppComponent {
       });
   }
 
-  catchCheckMdp(err, isAll) {
-    // si status = 200, alors le mot de passe est correct
-    if (err.status === 201) {
+  thenCheckMdp(isAll) {
+    Login.isAll = isAll;
+    this.router.navigate(['/home']).then();
+  }
+
+  catchCheckMdp(err) {
+    if (err.status === 403) {
       this.router.navigate(['/login']).then();
-    } else if (err.status == 200) {
-      Login.isAll = isAll;
-      this.router.navigate(['/home']).then();
     } else {
       this.router.navigate(['/erreur']).then();
     }

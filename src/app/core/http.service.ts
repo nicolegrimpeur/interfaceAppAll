@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {InfoResidenceModel} from '../shared/models/info-residence-model';
 import {Langue} from '../shared/langue';
@@ -65,13 +65,13 @@ export class HttpService {
   }
 
   checkMdpRp(mdp): Observable<any> {
-    const url = this.base + 'mdpRp/' + mdp;
-    return this.http.get<any>(url);
+    const url = this.base + 'mdpRp';
+    return this.http.post<any>(url, {mdp});
   }
 
   checkMdpAll(mdp): Observable<any> {
-    const url = this.base + 'mdpRp/all/' + mdp;
-    return this.http.get<any>(url);
+    const url = this.base + 'mdpRp/all';
+    return this.http.post<any>(url, {mdp});
   }
 
   downloadImg(id): Observable<any> {
