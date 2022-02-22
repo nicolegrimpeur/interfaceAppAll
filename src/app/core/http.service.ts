@@ -5,15 +5,13 @@ import {InfoResidenceModel} from '../shared/models/info-residence-model';
 import {Langue} from '../shared/langue';
 import {ListeModel} from '../shared/models/liste-model';
 import {Login} from "../shared/login";
-
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  private base = 'https://nicob.ovh/';
-  // private base = 'http://localhost:1080/';
-  private baseUrl = this.base + 'apiJson/';
+  private baseUrl = environment.base + 'apiJson/';
 
   constructor(private readonly http: HttpClient) {
   }
@@ -65,12 +63,12 @@ export class HttpService {
   }
 
   checkMdpRp(mdp): Observable<any> {
-    const url = this.base + 'mdpRp';
+    const url = environment.base + 'mdpRp';
     return this.http.post<any>(url, {mdp});
   }
 
   checkMdpAll(mdp): Observable<any> {
-    const url = this.base + 'mdpRp/all';
+    const url = environment.base + 'mdpRp/all';
     return this.http.post<any>(url, {mdp});
   }
 
