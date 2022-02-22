@@ -10,7 +10,7 @@ Les RP possèdent un mot de passe leurs permettant de modifier les informations,
 
 Repository du site [nicob.ovh/all](nicob.ovh/all)
 
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=nicolegrimpeur&repo=appAll&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=nicolegrimpeur&repo=appAll&theme=vision-friendly-dark)](https://github.com/nicolegrimpeur/appAll)
 
 
 ## Crédits
