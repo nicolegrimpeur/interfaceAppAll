@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Storage} from '@capacitor/storage';
+import {Preferences} from '@capacitor/Preferences';
 import {Login} from '../shared/login';
 
 @Injectable({
@@ -11,23 +11,23 @@ export class StorageService {
   }
 
   async setLogin() {
-    await Storage.set({
+    await Preferences.set({
       key: 'mdp',
       value: Login.mdp,
     });
-    await Storage.set({
+    await Preferences.set({
       key: 'isAll',
       value: String(Login.isAll),
     });
   }
 
   async getLogin() {
-    const {value} = await Storage.get({key: 'mdp'});
+    const {value} = await Preferences.get({key: 'mdp'});
     return value;
   }
 
   async getIsAll() {
-    const {value} = await Storage.get({key: 'isAll'});
+    const {value} = await Preferences.get({key: 'isAll'});
     return value === 'true';
   }
 }
